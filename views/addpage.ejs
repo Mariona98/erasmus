@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Entry</title>
+  <!-- If "public" is served statically, then "style.css" is at "/css/style.css" -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="home-icon">Home</a>
+    </div>
+    <div class="nav-right">
+      <!-- The new links: Add Post & View Posts -->
+      <a href="/addpage" class="nav-link">Add Post</a>
+      <a href="/posts" class="nav-link">View Posts</a>
+  
+      <!-- Existing links -->
+      <a href="/login">Sign In</a>
+      <a href="/login" class="register-btn">Register</a>
+    </div>
+  </nav>
+
+  <section class="create-section">
+    <h1>Create a New Entry</h1>
+
+    <form id="createForm">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required>
+
+      <label for="subheading">Subheading</label>
+      <input type="text" id="subheading" name="subheading">
+
+      <label for="description">Add Description</label>
+      <textarea id="description" name="description"></textarea>
+
+      <label for="entryDate">Entry Date</label>
+      <input type="date" id="entryDate" name="entryDate">
+
+      <!-- Image Upload -->
+      <div class="image-upload">
+        <!-- If placeholder.jpg is in public/images, then "/images/placeholder.jpg" -->
+        <img src="/images/placeholder.jpg" alt="Placeholder" class="preview-image">
+        <input type="file" id="imageFile">
+      </div>
+
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </section>
+
+  <!-- JavaScript path is "/js/script.js" -->
+  <script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home - My Figma Website</title>
+  <!-- Remove "/public" and just use "/css/style.css" -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="home-icon">Home</a>
+    </div>
+    <div class="nav-right">
+      <!-- The new links: Add Post & View Posts -->
+      <a href="/addpage" class="nav-link">Add Post</a>
+      <a href="/posts" class="nav-link">View Posts</a>
+  
+      <!-- Existing links -->
+      <a href="/login">Sign In</a>
+      <a href="/login" class="register-btn">Register</a>
+    </div>
+  </nav>
+
+  <!-- Filter/Search Section -->
+  <section class="search-filter">
+    <label for="category">Category:</label>
+    <select id="category">
+      <option>All</option>
+      <option>Events</option>
+      <option>Meetups</option>
+      <option>Talks</option>
+    </select>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate">
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate">
+
+    <button id="searchBtn">Search</button>
+  </section>
+
+  <!-- Listing Section -->
+  <section class="listing">
+    <!-- Example Card 1 -->
+    <div class="card">
+      <div class="card-image"> 
+        <!-- Remove "/public" in the src attribute -->
+        <img src="/images/placeholder.jpg" alt="Placeholder">
+      </div>
+      <div class="card-content">
+        <h2 class="card-heading">Heading</h2>
+        <p class="card-subheading">Subheading | 10/12/2023</p>
+        <p class="card-tags">Topic: Environment, Recycle</p>
+        <p class="card-snippet">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+        </p>
+      </div>
+    </div>
+
+    <!-- Repeat more cards as needed -->
+  </section>
+
+  <!-- (Optional) Footer -->
+  <footer>
+    <p>© 2024 My Figma Website</p>
+  </footer>
+
+  <!-- Same logic: Remove "/public" -->
+  <script src="/js/script.js"></script>
+</body>
+</html>

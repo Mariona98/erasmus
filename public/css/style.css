@@ -1,0 +1,134 @@
+/* style.css */
+
+/* Reset or basic setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif; /* or whichever font from Figma */
+    background-color: #b3e6f3; /* your Figma background color (light blue) */
+    color: #333;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #63c7e3;
+    padding: 1rem;
+  }
+  
+  .home-icon {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+  
+  .nav-right a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #000;
+  }
+  
+  /* Search/Filter Section */
+  .search-filter {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  /* Listing Section */
+  .listing {
+    padding: 1rem;
+  }
+  .card {
+    background-color: #ffffff;
+    margin-bottom: 1rem;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .card-image img {
+    width: 150px;
+    height: auto;
+  }
+  .card-content {
+    padding: 1rem;
+  }
+  
+  /* Create Section */
+  .create-section {
+    padding: 1rem;
+  }
+  .create-section form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+  }
+  .create-section form label {
+    margin-top: 1rem;
+  }
+  .create-section form input,
+  .create-section form textarea {
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .image-upload {
+    margin-top: 1rem;
+  }
+  .preview-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  /* Login Section */
+  .login-section {
+    padding: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .login-section form {
+    display: flex;
+    flex-direction: column;
+  }
+  .login-section form label {
+    margin-top: 1rem;
+  }
+  
+  /* Details Section */
+  .details-section {
+    padding: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+  }
+  .details-image {
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+  }
+  .details-content {
+    flex: 1;
+  }
+  
+  /* Buttons */
+  .btn {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #63c7e3;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .btn:hover {
+    background-color: #57afc7;
+  }
+  

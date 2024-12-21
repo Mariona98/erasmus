@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - My Figma Website</title>
+  <!-- If "public" is served as the static root, use "/css/style.css" -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="home-icon">Home</a>
+    </div>
+    <div class="nav-right">
+      <!-- The new links: Add Post & View Posts -->
+      <a href="/addpage" class="nav-link">Add Post</a>
+      <a href="/posts" class="nav-link">View Posts</a>
+  
+      <!-- Existing links -->
+      <a href="/login">Sign In</a>
+      <a href="/login" class="register-btn">Register</a>
+    </div>
+  </nav>
+
+  <section class="login-section">
+    <h1>Sign In</h1>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+      
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+
+      <button type="submit" class="btn">Sign In</button>
+
+      <!-- Link to a proper route (e.g., "/register") instead of a raw file path -->
+      <p>Don’t have an account? <a href="/register">Create Account</a></p>
+    </form>
+  </section>
+
+  <!-- Same static-file logic: "/js/script.js" if your file is in public/js/script.js -->
+  <script src="/js/script.js"></script>
+</body>
+</html>

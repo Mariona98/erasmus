@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Details - My Figma Website</title>
+  <!-- If your Express server uses "app.use(express.static('public'))", 
+       your CSS is served from "/css/style.css" -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="home-icon">Home</a>
+    </div>
+    <div class="nav-right">
+      <!-- The new links: Add Post & View Posts -->
+      <a href="/addpage" class="nav-link">Add Post</a>
+      <a href="/posts" class="nav-link">View Posts</a>
+  
+      <!-- Existing links -->
+      <a href="/login">Sign In</a>
+      <a href="/login" class="register-btn">Register</a>
+    </div>
+  </nav>
+
+  <section class="details-section">
+    <!-- If placeholder.jpg is in "public/images", 
+         then src="/images/placeholder.jpg" is correct -->
+    <img src="/images/placeholder.jpg" alt="Placeholder" class="details-image">
+
+    <div class="details-content">
+      <h1>RECYCLE REUSE</h1>
+      <p class="details-meta">Posted on: 12/10/2023 | Category: Environment</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Nunc a dolor id risus consectetur blandit. Suspendisse potenti...
+        <!-- longer text here -->
+      </p>
+    </div>
+  </section>
+
+  <!-- JavaScript is served from "/js/script.js" if it's in "public/js/" -->
+  <script src="/js/script.js"></script>
+</body>
+</html>
