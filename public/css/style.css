@@ -7,6 +7,13 @@
     box-sizing: border-box;
   }
   
+img,svg,a,p{
+    color: rgb(28 101 167);
+    fill:rgb(28 101 167);
+  }
+  .primary{
+    background-color: rgb(28 101 167);
+  }
   body {
     font-family: Arial, sans-serif; /* or whichever font from Figma */
     background-color: #b3e6f3; /* your Figma background color (light blue) */
@@ -20,7 +27,16 @@
     background-color: #63c7e3;
     padding: 1rem;
   }
-  
+  footer{
+    background-color: #63c7e3;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  .bi {
+    vertical-align: -.125em;
+    fill: rgb(82, 86, 88);
+}
   .home-icon {
     text-decoration: none;
     color: #000;
@@ -31,7 +47,7 @@
   .nav-right a {
     margin-left: 1rem;
     text-decoration: none;
-    color: #000;
+    
   }
   
   /* Search/Filter Section */
@@ -40,7 +56,13 @@
     gap: 1rem;
     padding: 1rem;
   }
-  
+ #filterswrapper{
+    max-width: 70%;
+  }
+  #filterswrapper label{
+    text-wrap-mode: nowrap;
+    margin: 15px 0;
+  }
   /* Listing Section */
   .listing {
     padding: 1rem;
@@ -93,15 +115,13 @@
     padding: 1rem;
     max-width: 400px;
     margin: 0 auto;
+
   }
   .login-section form {
     display: flex;
     flex-direction: column;
   }
-  .login-section form label {
-    margin-top: 1rem;
-  }
-  
+ 
   /* Details Section */
   .details-section {
     padding: 1rem;

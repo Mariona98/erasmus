@@ -1,46 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Home - My Figma Website</title>
-  <!-- Remove "/public" and just use "/css/style.css" -->
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="/" class="home-icon">Home</a>
-    </div>
-    <div class="nav-right">
-      <!-- The new links: Add Post & View Posts -->
-      <a href="/addpage" class="nav-link">Add Post</a>
-      <a href="/posts" class="nav-link">View Posts</a>
+ <!-- Include header dynamically -->  
   
-      <!-- Existing links -->
-      <a href="/login">Sign In</a>
-      <a href="/login" class="register-btn">Register</a>
-    </div>
-  </nav>
-
+ <%- include('partials/header.ejs') %>  
   <!-- Filter/Search Section -->
-  <section class="search-filter">
+  <section id="filterswrapper" class="search-filter dropdown">
     <label for="category">Category:</label>
-    <select id="category">
-      <option>All</option>
-      <option>Events</option>
-      <option>Meetups</option>
-      <option>Talks</option>
+  
+    <select id="category" class="form-select" aria-label="Default select example">
+      <option selected>Open this select menu</option>
+      <option value="1">All</option>
+      <option value="2">Events</option>
+      <option value="3">Talks</option>
+      <option value="3">Meetups</option>
     </select>
 
     <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate">
+    <input type="date"  class="form-control mt-2" id="startDate">
 
     <label for="endDate">End Date:</label>
-    <input type="date" id="endDate">
+    <input type="date" class="form-control mt-2" id="endDate">
 
-    <button id="searchBtn">Search</button>
+    <button id="searchBtn" type="submit" class="btn btn-primary">Search</button>
   </section>
 
   <!-- Listing Section -->
@@ -64,12 +44,6 @@
     <!-- Repeat more cards as needed -->
   </section>
 
-  <!-- (Optional) Footer -->
-  <footer>
-    <p>© 2024 My Figma Website</p>
-  </footer>
 
-  <!-- Same logic: Remove "/public" -->
-  <script src="/js/script.js"></script>
-</body>
-</html>
+  <%- include('partials/footer.ejs') %>  
+

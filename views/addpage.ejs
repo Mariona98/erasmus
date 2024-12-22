@@ -8,20 +8,8 @@
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="/" class="home-icon">Home</a>
-    </div>
-    <div class="nav-right">
-      <!-- The new links: Add Post & View Posts -->
-      <a href="/addpage" class="nav-link">Add Post</a>
-      <a href="/posts" class="nav-link">View Posts</a>
-  
-      <!-- Existing links -->
-      <a href="/login">Sign In</a>
-      <a href="/login" class="register-btn">Register</a>
-    </div>
-  </nav>
+   <!-- Include header dynamically -->  
+   <%- include('partials/header.ejs') %> 
 
   <section class="create-section">
     <h1>Create a New Entry</h1>
