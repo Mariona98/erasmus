@@ -13,20 +13,29 @@
 <body>
 <header>
     <!-- Navbar -->
-    <nav class="navbar">
-      <div class="nav-left">
-        <a href="/" class="home-icon text-primary">Home</a>
-      </div>
-      <div class="nav-right d-flex ">
-        <!-- The new links: Add Post & View Posts -->
-        <a href="/addpage" class="nav-link">
-            <img src="/icons/add-icon.svg" class="m-1 text-primary" alt="add-icon" width="20" height="20">
-            Add Post</a>
-        <a href="/posts" class="nav-link">View Posts</a>
-    
-        <!-- Existing links -->
-        <a href="/login" class="nav-link">Sign In</a>
-        <a href="/register" class="register-btn nav-link">Register</a>
-      </div>
-    </nav>
+   
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <!-- <span class="navbar-toggler-icon"></span> -->
+           <img src="/icons/bars-solid.svg" width="20" height="20" alt="bars-icon">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a href="/addpage" class="nav-link">
+                <img src="/icons/add-icon.svg" class="m-1 text-primary" alt="add-icon" width="20" height="20">
+                Add Post</a></li>
+
+                <li class="nav-item"><a href="/posts" class="nav-link">View Posts</a></li>
+                <li class="nav-item"> <a href="/login" class="nav-link">Sign In</a></li>
+                <li class="nav-item"> <a href="/register" class="register-btn nav-link">Register</a></li>
+              </ul>
+          
+            </div>
+          </div>
+        </nav>
   </header>
+

@@ -39,5 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Perform fetch/axios call to your server or auth API
       });
     }
+    //mobile mode menu btn 
+    const btn_menu = document.getElementById('btn-menu');
+    btn.addEventListener('click',function(){
+
+    });
+    console.log(btn_menu);
   });
-  

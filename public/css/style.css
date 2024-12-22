@@ -41,6 +41,10 @@ main {
     background-color: #63c7e3;
     padding: 1rem;
   }
+  .nav-link{
+    text-wrap-mode: nowrap;
+    text-align: center;
+  }
   footer{
     background-color: #63c7e3;
     bottom: 0;
@@ -173,5 +177,11 @@ main {
   @media only screen and (max-width: 800px) {
     #filterswrapper{
       display: block;
+    }
+
+  }
+  @media only screen and (max-width: 600px){
+    .nav-right{
+      display: none!important;
     }
   }
