@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Details - My Figma Website</title>
-  <!-- If your Express server uses "app.use(express.static('public'))", 
-       your CSS is served from "/css/style.css" -->
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
 
  <!-- Include header dynamically -->  
  <%- include('partials/header.ejs') %> 
@@ -28,7 +18,4 @@
     </div>
   </section>
 
-  <!-- JavaScript is served from "/js/script.js" if it's in "public/js/" -->
-  <script src="/js/script.js"></script>
-</body>
-</html>
+  <%- include('partials/footer.ejs') %>  
