@@ -1,35 +1,63 @@
+<!-- Include header dynamically -->
+<%- include('partials/header.ejs') %>
 
- <!-- Include header dynamically -->  
- <%- include('partials/header.ejs') %>  
+<section class="login-section">
+  <form class="form-signin mt-5">
+    <img
+      class="m-2 m-auto"
+      src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+      alt=""
+      width="72"
+      height="72"
+    />
+    <h1 class="m-auto">Registration form </h1>
+    <label for="registerEmail" class="sr-only mt-2">Email address</label>
+    <input
+      type="email"
+      id="registerEmail"
+      class="form-control mt-2"
+      placeholder="Email address"
+      required=""
+      autofocus=""
+    />
 
-  <section class="login-section">
+    <label for="registerUsername" class="sr-only mt-2">Username</label>
+    <input
+      type="text"
+      id="registerUsername"
+      class="form-control mt-2"
+      placeholder="Username"
+      required=""
+      autofocus=""
+    />
 
-    <form class="form-signin mt-5" >
-      <img class="m-2 m-auto" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="m-auto">Please sign in</h1>
-      <label for="registerEmail" class="sr-only mt-2">Email address</label>
-      <input type="email" id="registerEmail" class="form-control mt-2" placeholder="Email address" required="" autofocus="">
-      <label for="registerUsername" class="sr-only mt-2">Username</label>
-      <input type="email" id="registerUsername" class="form-control mt-2" placeholder="Email address" required="" autofocus="">
-      <label for="registerPassword" class="sr-only ">Password</label>
-      <input type="password" id="registerPassword" class="form-control mt-2" placeholder="Password" required="">
-      
+    <label for="registerPassword" class="sr-only">Password</label>
+    <input
+      type="password"
+      id="registerPassword"
+      class="form-control mt-2"
+      placeholder="Password"
+      required=""
+    />
+
     <div class="d-flex justify-content-between">
-      <div class="checkbox my-3 ">
+      <div class="checkbox my-3">
         <label>
-          <input type="checkbox" value="remember-me"> Remember me
+          <input type="checkbox" value="remember-me" /> Remember me
         </label>
-
       </div>
-      <div class="checkbox my-3 ">
+      <br />
+      <div class="checkbox my-3">
         <label>
-          <input type="checkbox" value="author"> Are you an author?
+          <input type="checkbox" value="author" /> Are you an author?
         </label>
+      </div>
+      <br />
     </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-     
-    </form>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Sign in
+    </button>
+  </form>
+</section>
 
-  </section>
-
-  <%- include('partials/footer.ejs') %>  
+<%- include('partials/footer.ejs') %>

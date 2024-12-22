@@ -166,6 +166,10 @@ main {
   .btn:hover {
     background-color: #57afc7;
   }
+
+  .listingwrapper{
+    height: 100vh;
+  }
   @media only screen and (max-width: 800px) {
     #filterswrapper{
       display: block;

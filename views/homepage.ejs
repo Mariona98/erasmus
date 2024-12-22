@@ -3,7 +3,7 @@
   
  <%- include('partials/header.ejs') %>  
   <!-- Filter/Search Section -->
-  <section id="filterswrapper" class="search-filter dropdown">
+  <div id="filterswrapper" class="search-filter dropdown">
     <label for="category">Category:</label>
   
     <select id="category" class="form-select" aria-label="Default select example">
@@ -21,10 +21,10 @@
     <input type="date" class="form-control mt-2" id="endDate">
 
     <button id="searchBtn" type="submit" class="btn btn-primary">Search</button>
-  </section>
-
+  </div>
+<div class="listingwrapper">
   <!-- Listing Section -->
-  <section class="listing">
+  <div class="listing">
     <!-- Example Card 1 -->
     <div class="card">
       <div class="card-image"> 
@@ -42,8 +42,8 @@
     </div>
 
     <!-- Repeat more cards as needed -->
-  </section>
-
+  </div>
+</div>
 
   <%- include('partials/footer.ejs') %>  
 
