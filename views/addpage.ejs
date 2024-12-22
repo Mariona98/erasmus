@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Create Entry</title>
-  <!-- If "public" is served statically, then "style.css" is at "/css/style.css" -->
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create Entry</title>
+    <!-- If "public" is served statically, then "style.css" is at "/css/style.css" -->
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <!-- Include header dynamically -->
+    <%- include('partials/header.ejs') %>
+    <div class="d-flex justify-content-center">
+      <section class="create-section">
+        <h1>Create a New Entry</h1>
 
-   <!-- Include header dynamically -->  
-   <%- include('partials/header.ejs') %> 
-<div class="d-flex justify-content-center">
-  <section class="create-section">
-    <h1>Create a New Entry</h1>
+        <form id="createForm">
+          <div>
+            <label class="form-control" for="title">Title</label>
+            <input
+              class="form-control"
+              type="text"
+              id="title"
+              name="title"
+              required
+            />
 
-    <form id="createForm">
-<div>
+            <label class="form-control" for="subheading">Subheading</label>
+            <input
+              class="form-control"
+              type="text"
+              id="subheading"
+              name="subheading"
+            />
 
+            <label class="form-control" for="description"
+              >Add Description</label
+            >
+            <textarea
+              class="form-control"
+              id="description"
+              name="description"
+            ></textarea>
 
-      <label class="form-control" for="title">Title</label>
-      <input class="form-control" type="text" id="title" name="title" required>
+            <label for="entryDate">Entry Date</label>
+            <input
+              id="entryDate"
+              class="form-control"
+              type="date"
+              name="entryDate"
+            />
+          </div>
+          <!-- Image Upload -->
+          <div class="image-upload">
+            <!-- If placeholder.jpg is in public/images, then "/images/placeholder.jpg" -->
+            <img
+              src="/images/placeholder.jpg"
+              alt="Placeholder"
+              class="preview-image"
+            />
+            <input type="file" id="imageFile" />
+          </div>
 
-      <label class="form-control" for="subheading">Subheading</label>
-      <input class="form-control" type="text" id="subheading" name="subheading">
-
-      <label class="form-control" for="description">Add Description</label>
-      <textarea class="form-control" id="description" name="description"></textarea>
-
-      <label for="entryDate">Entry Date</label>
-      <input  id="entryDate" class="form-control" type="date" name="entryDate">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </section>
     </div>
-      <!-- Image Upload -->
-      <div class="image-upload">
-        <!-- If placeholder.jpg is in public/images, then "/images/placeholder.jpg" -->
-        <img src="/images/placeholder.jpg" alt="Placeholder" class="preview-image">
-        <input type="file" id="imageFile">
-      </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </section>
-</div>
-
-   <!-- Include header dynamically -->  
-   <%- include('partials/footer.ejs') %> 
+    <!-- Include header dynamically -->
+    <%- include('partials/footer.ejs') %>
+  </body>
+</html>

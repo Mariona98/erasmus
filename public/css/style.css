@@ -15,7 +15,7 @@
 section {  
     display: flex;  
     flex-direction: column;  
-    margin-top: 10%;
+    margin-top: 5%;
     min-height: 100vh; /* Ensures the footer is at the bottom of the viewport */  
 }  
 img,svg,a,p{
