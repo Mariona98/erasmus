@@ -18,6 +18,14 @@ section {
     margin-top: 5%;
     min-height: 100vh; /* Ensures the footer is at the bottom of the viewport */  
 }  
+
+.errors{
+  list-style: none;
+    border: 2px red solid;
+    border-radius: 8px;
+    padding: 6px;
+    margin: 3px 0;
+}
 img,svg,a,p{
   color: rgb(28 101 167);
   fill:rgb(28 101 167);
