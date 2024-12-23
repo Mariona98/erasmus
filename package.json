@@ -4,15 +4,21 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemond server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
-    "mywebsite": "file:"
+    "mywebsite": "file:",
+    "pg": "^8.13.1"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }

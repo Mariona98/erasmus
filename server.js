@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path'); // to work with directories
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 // 1) Install EJS (npm install ejs)
 // 2) Set the view engine to ejs
@@ -18,12 +18,12 @@ app.use(express.static('public'));
 // Routes
 app.get('/', (req, res) => {
   // "homepage.ejs" in "views" folder
-  res.render('homepage');
+  res.render('homepage',{user:"kate"});
 });
 
 app.get('/addpage', (req, res) => {
   // "addpage.ejs" in "views" folder
-  res.render('addpage');
+  res.render('addpage',{user:"kate"});
 });
 
 app.get('/login', (req, res) => {
