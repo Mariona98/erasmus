@@ -74,13 +74,13 @@ app.post("/register", async (req, res) => {
     
       try {  
         const results = await pool.query('SELECT * FROM public.users WHERE email = $1', [email]);
-    console.log("Query Results:", results.rows);   
-    
-    
-    
+      
         if (results.rows.length > 0) {  
           // User already exists, handle accordingly (e.g., send an error response)  
-          res.render("register", { errors: ["Email already in use."] });  
+          errors.push({ message: "Email already register." });
+          res.render("register", { errors }); 
+       
+         
         } else {  
           // Proceed to register the user (insert user in DB, etc.)  
           await pool.query(`INSERT INTO users (username,email, password,admin) VALUES ($1, $2, $3, $4)`, [username,email, hashedPassword,isAuthor]);  
