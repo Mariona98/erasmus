@@ -16,7 +16,7 @@
     <ul class="p-0 text-center">
       <% if(typeof errors != 'undefined'){ %>
          <% for(var i=0; i< errors.length;i++) {%>
-         <li class="text-danger errors"><%= errors[i].message %></li>
+         <li class="text-danger messages border border-3 text-center"><%= errors[i].message %></li>
       <% } %>
       <% } %>
     </ul>

@@ -3,8 +3,19 @@
  <%- include('partials/header.ejs') %>  
 
   <section class="login-section">
-
-    <form class="form-signin mt-5">
+    <ul class="p-0">
+<%if(messages.success_msg ){%>
+    
+<li class="text-success border border-3 border-success text-center messages"> <%= messages.success_msg %></li>
+<% } %>
+</ul>
+<ul class="p-0">
+  <%if(messages.error ){%>
+      
+  <li class="text-danger border border-3 border-danger text-center messages"> <%= messages.error %></li>
+  <% } %>
+  </ul>
+    <form class="form-signin mt-5" method="POST" action="/login">
       <img class="m-2 m-auto" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="m-auto">Please sign in</h1>
       <label for="inputEmail" class="sr-only mt-2">Email address</label>

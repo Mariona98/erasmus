@@ -19,14 +19,15 @@ section {
     min-height: 100vh; /* Ensures the footer is at the bottom of the viewport */  
 }  
 
-.errors{
+.messages{
   list-style: none;
-    border: 2px red solid;
     border-radius: 8px;
     padding: 6px;
     margin: 3px 0;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    letter-spacing: 0.8px;
 }
+
 img,svg,a,p{
   color: rgb(28 101 167);
   fill:rgb(28 101 167);
