@@ -46,8 +46,10 @@
                 alt="bars-icon"
               />
             </button>
+          
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <% if (user !== "guest") { %>  
                 <li class="nav-item">
                   <a href="/addpage" class="nav-link">
                     <img
@@ -60,19 +62,31 @@
                     Add Post</a
                   >
                 </li>
+                <% } %> 
                 <li class="nav-item">
-                  <a href="/posts" class="nav-link">View Posts</a>
+                  <a href="/posts" class="nav-link">Posts</a>
                 </li>
                 <li class="nav-item">
                   <a href="/login" class="nav-link">Sign In</a>
                 </li>
+
                 <li class="nav-item">
                   <a href="/register" class="register-btn nav-link">Register</a>
                 </li>
               </ul>
             </div>
           </div>
+          <div class="welcome-box d-flex mt-4" style="width:100%; justify-content: flex-end;">  
+            <% if (user !== "guest") { %>  
+              <div class="float-end">
+            <h6 class="ml-2 p-2">Welcome, <%= user.username %>!&nbsp;</h6>  
         
+              <form action="/logout" method="POST" style="display:inline;">  
+                  <button class="btn text-danger btn-sm m-0 " type="submit">logout</button>  
+              </form>  
+            </div>
+          <% } %>  
+          </div>
           
         </nav>
       </header>
