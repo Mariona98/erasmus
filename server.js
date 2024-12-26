@@ -71,14 +71,16 @@ app.post('/logout', (req, res) => {
   });  
 });
 app.get("/login", (req, res) => {
-  res.render("login");
+  const user = req.user ? req.user : "guest";
+  res.render("login", { user });
 });
 app.get("/404", (req, res) => {
   res.render("404");
 });
 
 app.get("/register", (req, res) => {
-  res.render("register");
+  const user = req.user ? req.user : "guest";
+  res.render("register", { user });
 });
 
 app.get("/posts", (req, res) => {
