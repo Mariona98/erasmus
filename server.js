@@ -1,13 +1,22 @@
 // server.js
-const express = require("express");
+const express = require('express');
 const path = require("path"); // to work with directories
 const app = express();
 const { pool } = require("./dbConfig");
 const { error } = require("console");
 const bcrypt = require("bcrypt");
-const session = require('express-session'); ;
+const session = require('express-session');  
 const flash = require('express-flash'); 
-const passport = require('passport');
+const passport = require('passport');  
+
+// Middleware to parse incoming request bodies  
+app.use(express.urlencoded({ extended: true }));  
+
+// Add session and flash middleware  
+app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));  
+app.use(flash());  
+app.use(passport.initialize());  
+app.use(passport.session());  
 
 const initializePassport = require('./passportConfig');
 initializePassport(passport);
@@ -42,14 +51,25 @@ app.use(flash());
 // Routes
 app.get("/", (req, res) => {
   // "homepage.ejs" in "views" folder
-  res.render("homepage", { user: "kate" });
+  const user = req.user ? req.user : "guest"; // Use req.user if available, otherwise default to "guest"  
+  res.render("homepage", { user });
+  // Render the "addpage.ejs" view and pass the user variable  
 });
 
-app.get("/addpage", (req, res) => {
-  // "addpage.ejs" in "views" folder
-  res.render("addpage", { user: "kate" });
-});
 
+app.get("/addpage", (req, res) => {  
+  // Determine the user  
+  const user = req.user ? req.user : "guest"; // Use req.user if available, otherwise default to "guest"  
+  
+  // Render the "addpage.ejs" view and pass the user variable  
+  res.render("addpage", { user });  
+});
+app.post('/logout', (req, res) => {  
+  req.logout((err) => {  
+      if (err) { return next(err); }  
+      res.redirect('/'); // Redirect to home or another page after logout  
+  });  
+});
 app.get("/login", (req, res) => {
   res.render("login");
 });
@@ -62,7 +82,8 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/posts", (req, res) => {
-  res.render("posts");
+  const user = req.user ? req.user : "guest";
+  res.render("posts",{ user });
 });
 
 ////post request
@@ -120,34 +141,33 @@ app.post("/register", async (req, res) => {
   }
 });
 
-try{
-  app.post('/login',passport.authenticate('local',{
-    successRedirect:'/addpage',
-    failureRedirect:'/404',
-    failureFlash:true
-  }));
-}catch(err){
-  console.error("login failed: ",err);
-}
- 
+//login request 
 
-// app.post('/login',   
-//   passport.authenticate('local', {  
-//       successRedirect: '/addpage',  
-//       failureRedirect: '/404',  
-//       failureFlash: true  
-//   }),   
-//   (req, res) => {  
-//       // This callback is optional, it will be called if authentication was successful.  
-//       res.redirect('/addpage');  
-//   }  
-// );  
+app.post('/login', (req, res, next) => {  
+  console.log("Incoming request body:", req.body); // Log incoming request data  
+  
+  passport.authenticate('local', (err, user, info) => {  
+    if (err) {  
+      console.error("Login failed: ", err);  
+      return next(err); // Passes the error to the error handler  
+    }  
+    if (!user) {  
+      // If user is not found  
+      console.log("User not found with the provided email.");  
+      req.flash('error_msg', info.message || "Invalid email or password."); // Flash error message  
+      return res.redirect('/login'); // Redirect back to login with message  
+    }  
 
-// // Error handling middleware  
-// app.use((err, req, res, next) => {  
-//   console.error("login failed: ", err);  
-//   res.status(500).send("Something went wrong!");  
-// });
+    req.logIn(user, (err) => {  
+      if (err) {  
+        console.error("Login failed during req.login: ", err);  
+        return next(err);  
+      }  
+      console.log("User authenticated successfully:", user.email);  
+      return res.redirect('/addpage'); // Redirect upon successful authentication  
+    });  
+  })(req, res, next); // Call the authenticate function  
+});
 
 
 

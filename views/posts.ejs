@@ -1,7 +1,15 @@
 
  <!-- Include header dynamically -->  
  <%- include('partials/header.ejs') %> 
-
+ <div class="welcome-box d-flex mt-4 float-end">  
+  <% if (user !== "guest") { %>
+  <h6 class="ml-2">Welcome, <%= user.username %>!&nbsp;</h6>  
+  
+    <form action="/logout" method="POST" style="display:inline;">  
+        <button class="btn btn-danger btn-sm m-0 " type="submit">Logout</button>  
+    </form>  
+<% } %>  
+</div> 
   <section class="details-section mt-5">
     <!-- If placeholder.jpg is in "public/images", 
          then src="/images/placeholder.jpg" is correct -->
