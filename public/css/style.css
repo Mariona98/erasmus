@@ -32,6 +32,9 @@ img,svg,a,p{
   color: rgb(28 101 167);
   fill:rgb(28 101 167);
 }
+a{
+  text-decoration: none!important;
+}
 .primary{
   background-color: rgb(28 101 167);
 }
@@ -72,9 +75,25 @@ main {
     font-weight: bold;
     margin-right: 1rem;
   }
-  #user:hover ~ #userlist{
-    display:block;
+  #userlist {
+    background-color: whitesmoke;
+    border-radius: 8%;
+    padding: 15px;
+    display: none;
+    
   }
+  #user:hover  #userlist{
+    display:block;
+    position: absolute;
+    z-index: 100;
+    right: 50px;
+    
+  }
+ #userlist li{
+  list-style: none;
+  padding: 2%;
+ }
+
   .nav-right a {
     margin-left: 1rem;
     text-decoration: none;
@@ -84,6 +103,7 @@ main {
   /* Search/Filter Section */
   .search-filter {
     display: flex;
+   
     gap: 1rem;
     padding: 1rem;
   }

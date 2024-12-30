@@ -81,22 +81,20 @@
             style="width: 100%; justify-content: flex-end"
           >
             <% if (user !== "guest") { %>
-            <div class="float-end">
+            <div class="float-end" id="user">
               <h6 class="ml-2 p-2">
                 Welcome, 
-                <a id="user" href="#"> <%= user.username %> </a>!&nbsp;
+                <a  href="#"> <%= user.username %> </a>!&nbsp;
               </h6>
-              <ul id="userlist">
+              <ul id="userlist" class="text-center">
                 <li>
-                  <form class="collapse navbar-collapse" action="/logout" method="POST" >
+                  <form class="collapse navbar-collapse justify-content-center" action="/logout" method="POST" >
                     <button class="btn text-danger btn-sm m-0" type="submit">
                       logout
                     </button>
-
-                    
-
                   </form>
                 </li>
+                <li><a href="#">profile</a></li>
               </ul>
             </div>
             <% } %>
