@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    letter-spacing: 0.8px;
   }
   
 
@@ -75,11 +76,16 @@ main {
     font-weight: bold;
     margin-right: 1rem;
   }
+  #user{
+    text-transform: capitalize!important;
+   
+  }
   #userlist {
     background-color: whitesmoke;
     border-radius: 8%;
     padding: 15px;
     display: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     
   }
   #user:hover  #userlist{
@@ -92,6 +98,7 @@ main {
  #userlist li{
   list-style: none;
   padding: 2%;
+  text-transform: capitalize!important;
  }
 
   .nav-right a {

@@ -62,16 +62,17 @@
                     Add Post</a
                   >
                 </li>
-                <% } %>
-                <li class="nav-item">
-                  <a href="/posts" class="nav-link">Posts</a>
-                </li>
+                <% }else{ %>
                 <li class="nav-item">
                   <a href="/login" class="nav-link">Sign In</a>
                 </li>
 
                 <li class="nav-item">
                   <a href="/register" class="register-btn nav-link">Register</a>
+                </li>
+                <% }%>
+                <li class="nav-item">
+                  <a href="/posts" class="nav-link">Posts</a>
                 </li>
               </ul>
             </div>
@@ -83,16 +84,18 @@
             <% if (user !== "guest") { %>
             <div class="float-end" id="user">
               <h6 class="ml-2 p-2">
-                Welcome, 
-                <a  href="#"> <%= user.username %> </a>!&nbsp;
+                Welcome,
+                <a class="" href="#"> <%= user.username %> </a>!&nbsp;
               </h6>
               <ul id="userlist" class="text-center">
                 <li>
-                  <form class="justify-content-center" action="/logout" method="POST" >
-                    <button class="btn text-danger btn-sm m-0" type="submit">
-                      logout
-                    </button>
-                  </form>
+                  <a
+                    class="text-danger btn-sm m-0"
+                    href="/logout"
+                    type="submit"
+                  >
+                    Logout
+                  </a>
                 </li>
                 <li><a href="#">profile</a></li>
               </ul>
