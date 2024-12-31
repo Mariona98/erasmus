@@ -1,13 +1,27 @@
 // server.js
+
+ // to work with directories
+
+const bcrypt = require("bcrypt");
+const bodyParser = require('body-parser');
 const express = require("express");
-const path = require("path"); // to work with directories
-const app = express();
+const cors = require('cors');
+const fs = require('fs');  
+const flash = require("express-flash");
+const path = require("path");
+const passport = require("passport");
+const session = require("express-session");
+const multer = require('multer');  
 const { pool } = require("./dbConfig");
 const { error } = require("console");
-const bcrypt = require("bcrypt");
-const session = require("express-session");
-const flash = require("express-flash");
-const passport = require("passport");
+
+
+// Adjust as necessary for your setup  
+const app = express();
+const storage = multer.memoryStorage(); // Store image in memory
+const upload = multer({ storage });
+
+
 
 // Middleware to parse incoming request bodies
 app.use(express.urlencoded({ extended: true }));
@@ -22,7 +36,8 @@ app.use(passport.session());
 
 const initializePassport = require("./passportConfig");
 initializePassport(passport);
-
+app.use(bodyParser.json());
+app.use(cors());
 const PORT = process.env.PORT || 4000;
 
 // 1) Install EJS (npm install ejs)
@@ -185,6 +200,31 @@ app.post("/login", (req, res, next) => {
     });
   })(req, res, next); // Call the authenticate function
 });
+
+// new post entry
+app.post('/addpage', upload.single('image'), async (req, res) => {
+    try {
+      const { title, subheading, description, entry_date, end_date, user_id } = req.body;
+      const imageName = req.file.originalname; // File name
+      const imageData = req.file.buffer; // Image binary data
+  
+      const query = `
+        INSERT INTO entries (title, subheading, description, entry_date, end_date, image_name, image_data, user_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        RETURNING *;
+      `;
+      const values = [title, subheading, description, entry_date, end_date, imageName, imageData, user_id];
+  
+      const result = await pool.query(query, values);
+  
+      res.status(201).json({ message: 'Entry created successfully', entry: result.rows[0] });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to create entry' });
+    }
+  });
+
+
 
 // Start server
 app.listen(PORT, () => {
