@@ -204,20 +204,22 @@ app.post("/login", (req, res, next) => {
 // new post entry
 app.post('/addpage', upload.single('image'), async (req, res) => {
     try {
-      const { title, subheading, description, entry_date, end_date, user_id } = req.body;
+      const { title, subheading, description, entryDate, endDate } = req.body;
+      const user_id = req.user.id;
       const imageName = req.file.originalname; // File name
       const imageData = req.file.buffer; // Image binary data
-  
+      console.log(req);
       const query = `
         INSERT INTO entries (title, subheading, description, entry_date, end_date, image_name, image_data, user_id)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *;
       `;
-      const values = [title, subheading, description, entry_date, end_date, imageName, imageData, user_id];
+      const values = [title, subheading, description, entryDate, endDate, imageName, imageData, user_id];
   
       const result = await pool.query(query, values);
   
       res.status(201).json({ message: 'Entry created successfully', entry: result.rows[0] });
+     
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Failed to create entry' });

@@ -9,8 +9,9 @@
   <body>
     <!-- Include header dynamically -->
     <%- include('partials/header.ejs') %>
-
+    <center> <p id="message" class="text-danger p-3 text-center "> </p></center>
     <div class="d-flex justify-content-center">
+
       <section class="create-section">
         <h1>Create a New Entry</h1>
 
@@ -73,7 +74,7 @@
               class="preview-image"
             />
 
-            <input type="file" name="image" id="imageFile" required />
+            <input id="image" accept="image/*"  type="file" name="image" id="imageFile" multiple />
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -86,18 +87,4 @@
   </body>
 </html>
 
-<script>
-  const form = document.getElementById("entryForm");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
 
-    const formData = new FormData(form);
-    const response = await fetch("http://localhost:4000/addpost", {
-      method: "POST",
-      body: formData,
-    });
-
-    const result = await response.json();
-    alert(result.message || "Entry submitted successfully");
-  });
-</script>
