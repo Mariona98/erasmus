@@ -12,26 +12,33 @@ document.addEventListener("DOMContentLoaded", () => {
   //     console.log("Search for:", category, startDate, endDate);
   //   });
   // }
-  const date = new Date().toISOString().slice(0, 10); // Current date in YYYY-MM-DD format  
+  const date = new Date().toISOString().slice(0, 10); // Current date in YYYY-MM-DD format
 
-  const endDate = document.getElementById("endDate");  
-  const entryDate = document.getElementById("entryDate");  
-
-  endDate.addEventListener('change', () => {  
-      // Get the current values as date objects for comparison  
-      const endDateValue = new Date(endDate.value);  
-      const entryDateValue = new Date(entryDate.value);  
-
-      // Check if the end date is earlier than the entry date  
-      if (endDateValue < entryDateValue) {  
-          document.getElementById('message').innerText = "Παρακαλώ εισάγεται μια έγκυρη ημερομηνία."; // Message in Greek  
-          document.getElementById('message').style.display = 'block'; // Show the message  
-          endDate.value = date; // Reset endDate to current date  
-      } else {  
-          document.getElementById('message').style.display = 'none'; // Hide message if valid  
-      }  
+  const endDate = document.getElementById("endDate");
+  const entryDate = document.getElementById("entryDate");
+  entryDate.addEventListener("input", (e) => {
+    console.log(e.target.value < date);
+    if (e.target.value < date) {
+      document.getElementById("message").innerText =
+        "Παρακαλώ εισάγεται μια έγκυρη ημερομηνία."; // Message in Greek
+      document.getElementById("message").style.display = "block"; // Show the message
+      entryDate.value = date; // Reset endDate to current date
+    } else {
+      document.getElementById("message").style.display = "none"; // Hide message if valid
+    }
   });
+  endDate.addEventListener("input", (e) => { 
 
+    // Check if the end date is earlier than the entry date
+    if (e.target.value < entryDate.value) {
+      document.getElementById("message").innerText =
+        "Η ημερομηνία επιστροφής πρέπει να είναι μεγαλύτερη της ημερομηνίας αναχώρησης."; // Message in Greek
+      document.getElementById("message").style.display = "block"; // Show the message
+      endDate.value = ''; // Reset endDate to current date
+    } else {
+      document.getElementById("message").style.display = "none"; // Hide message if valid
+    }
+  });
 
   // Example: handle create form submit
   const createForm = document.getElementById("createForm");
@@ -45,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const title = document.getElementById("title").value;
       const subheading = document.getElementById("subheading").value;
       const description = document.getElementById("description").value;
-      entryDate = (!entryDate.value)?date:entryDate.value;
+      entryDate = !entryDate.value ? date : entryDate.value;
       endDate = endDate.value;
       const image = document.getElementById("image").files[0].name;
       // Send to server via fetch or Axios, etc.
