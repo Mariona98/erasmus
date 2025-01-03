@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // }
   const date = new Date().toISOString().slice(0, 10); // Current date in YYYY-MM-DD format
 
-  const endDate = document.getElementById("endDate");
-  const entryDate = document.getElementById("entryDate");
+  let endDate = document.getElementById("endDate");
+  let entryDate = document.getElementById("entryDate");
   entryDate.addEventListener("input", (e) => {
     console.log(e.target.value < date);
     if (e.target.value < date) {
@@ -52,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const title = document.getElementById("title").value;
       const subheading = document.getElementById("subheading").value;
       const description = document.getElementById("description").value;
-      entryDate = !entryDate.value ? date : entryDate.value;
+      console.log(entryDate.value);
+      console.log(endDate.value);
+      // entryDate = (entryDate.value == 'null') ? date : entryDate.value;
       endDate = endDate.value;
       const image = document.getElementById("image").files[0].name;
       // Send to server via fetch or Axios, etc.

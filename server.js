@@ -122,6 +122,7 @@ app.get("/login", (req, res) => {
     res.render("login", { user });
   }
 });
+
 app.get("/404", (req, res) => {
   res.render("404");
 });
@@ -138,12 +139,11 @@ app.get("/register", (req, res) => {
 app.get("/posts", async(req, res) => {
   const user = req.user ? req.user : "guest";
   const result = await pool.query('SELECT * FROM entries ORDER BY entry_date DESC'); // Adjust table name  
-
-
-
   res.render("posts", { user ,entries: result.rows});
 });
 
+
+// go to post page.
 app.get("/post/:id", async (req, res) => {
   try {
     const { id } = req.params; 
@@ -255,7 +255,7 @@ app.post("/login", (req, res, next) => {
 // new post entry
 app.post('/addpage', upload.single('image'), async (req, res) => {
     try {
-      const { title, subheading, description, entryDate, endDate } = req.body;
+      const { title, subheading, description, entry_date, endDate } = req.body;
       const user_id = req.user.id;
       const imageName = req.file.originalname; // File name
       const imageData = req.file.buffer; // Image binary data
@@ -265,10 +265,10 @@ app.post('/addpage', upload.single('image'), async (req, res) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *;
       `;
-      const values = [title, subheading, description, entryDate, endDate, imageName, imageData, user_id];
-  
+      const values = [title, subheading, description, entry_date, endDate, imageName, imageData, user_id];
       const result = await pool.query(query, values);
-  
+      console.log(result)
+      
       res.status(201).json({ message: 'Entry created successfully', entry: result.rows[0] });
      
     } catch (error) {
