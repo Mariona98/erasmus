@@ -138,11 +138,31 @@ app.get("/register", (req, res) => {
 app.get("/posts", async(req, res) => {
   const user = req.user ? req.user : "guest";
   const result = await pool.query('SELECT * FROM entries ORDER BY entry_date DESC'); // Adjust table name  
-console.log(result);
+
 
 
   res.render("posts", { user ,entries: result.rows});
 });
+
+app.get("/post/:id", async (req, res) => {
+  try {
+    const { id } = req.params; 
+    const user = req.user ? req.user : "guest";  
+    const result = await pool.query('SELECT * FROM entries WHERE id = $1', [id]); 
+
+
+    if (result.rows.length === 0) {
+      return res.status(404).send("Post not found"); 
+    }
+
+    const post = result.rows[0]; 
+    res.render("./post", { user,post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while fetching the post.");
+  }
+});
+
 
 
 

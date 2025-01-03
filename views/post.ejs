@@ -1,0 +1,29 @@
+<!-- Include header dynamically -->
+<%- include('partials/header.ejs') %>
+
+<section class="details-section mt-5" style="max-width: 850px">
+  <div class="card">
+    <div class="card-image">
+      <!-- Remove "/public" in the src attribute -->
+      <img src="/images/<%= post.id %>" alt="Article Image" />
+    </div>
+    <div class="card-content">
+      <h5 class="card-heading uppercaze"><%= post.title %></h5>
+
+      <p class="card-subheading truncatelatest">
+        <%= post.subheading  %>
+        <%  var event = new Date(post.created_at);
+         let date = JSON.stringify(event) ;
+        date = date.slice(1,11); %>
+       | <%= date  %>
+      </p>
+      <p class=""><%= post.description %></p>
+      <p class="card-tags">#cart</p>
+    </div>
+    <div class="d-flex justify-content-end m-3">
+      <a class="text-white btn btn-primary" href="/posts">Go back </a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer.ejs') %>

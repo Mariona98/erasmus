@@ -4,30 +4,32 @@
 <section class="details-section mt-5">
   <div class="container">
     <div class="row">
-     
-        <% entries.forEach(entry => { %>
-         
-          <div class="col-sm col-4">
-        <div class="card">
-          <div class="card-image">
-            <!-- Remove "/public" in the src attribute -->
-            <img src="/images/<%= entry.id %>" alt="Article Image" />
-          </div>
-          <div class="card-content">
-            <h5 class="card-heading"><%= entry.title %></h5>
+      <% entries.forEach(entry => { %>
 
-            <p class="card-subheading truncate">
-              <%= entry.subheading %> | <%= entry.created_at %>
-            </p>
-            <p class="card-tags">#cart</p>
-          </div>
+      <div class="col-sm col-4">
+        <div class="card">
+          <a href="/post/<%= entry.id %>">
+            <div class="card-image">
+              <!-- Remove "/public" in the src attribute -->
+              <img src="/images/<%= entry.id %>" alt="Article Image" />
+            </div>
+            <div class="card-content">
+              <h5 class="card-heading"><%= entry.title %></h5>
+
+              <p class="card-subheading truncatelatest">
+                <%= entry.subheading %> | <%= entry.created_at %>
+              </p>
+              <p class="card-tags">#cart</p>
+            </div>
+          </a>
         </div>
       </div>
-  
-        <% }); %>
-     
-      </div>
-    <a style="float: right" href="/posts">more</a>
+
+      <% }); %>
+    </div>
+    <div class="d-flex justify-content-end">
+      <a class="text-white btn btn-primary" href="/posts">Up</a>
+    </div>
   </div>
 </section>
 
