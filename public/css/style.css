@@ -44,7 +44,7 @@ a{
 }
 body {
   font-family: Arial, sans-serif; /* or whichever font from Figma */
-  background-color: #b3e6f3; /* your Figma background color (light blue) */
+  background-color: #b3e6f36e!important; /* your Figma background color (light blue) */
   color: #333;
 }
 main {  
@@ -133,14 +133,35 @@ main {
     margin-bottom: 1rem;
     display: flex;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px!important;
+
   }
   .card-image img {
-    width: 150px;
-    height: auto;
+    width: 100%;
+    max-width: 100%;
+    height:280px;
+    border-radius: 8px 8px 0px 0px;
   }
   .card-content {
     padding: 1rem;
+  }
+  .truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 1.5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1em; /* Adjust this based on your font size */
+    max-height: calc(1.5em * 1.5); /* 1.5 lines */
+  }
+  .truncatelatest {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1em; /* Adjust this based on your font size */
+    max-height: calc(1em * 1); /* 1.5 lines */
   }
   
   /* Create Section */
@@ -207,8 +228,7 @@ main {
     max-width: 100%;
     margin: 0 auto;
     width: 100%;
-  
-    background-image: url("../images/global-residence-index-addEU6TScGI-unsplash.jpg");
+    background-image: url("../images/bagtraveler.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right center;
@@ -228,7 +248,7 @@ main {
   /* Details Section */
   .details-section {
     padding: 1rem;
-    max-width: 900px;
+    /* max-width: 900px; */
     margin: 0 auto;
     display: flex;
     gap: 2rem;

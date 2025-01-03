@@ -64,10 +64,34 @@ app.use(
 );
 app.use(flash());
 
+//retrieve images 
+app.get('/images/:id', async (req, res) => {
+  try {
+      const { id } = req.params;
+      const query = 'SELECT image_data FROM entries WHERE id = $1; ';
+      const result = await pool.query(query, [id]);
+
+      if (result.rows.length > 0) {
+          const img = result.rows[0].image_data;
+          res.writeHead(200, { 'Content-Type': 'image/png' });
+          res.end(img, 'binary');
+      } else {
+          res.status(404).send('Image not found');
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Failed to fetch image');
+  }
+});
+
+
 // Routes
-app.get("/", (req, res) => {
+app.get("/", async(req, res) => {
   const user = req.user ? req.user : "guest"; // Use req.user if available, otherwise default to "guest"
-  res.render("homepage", { user });
+  const result = await pool.query('SELECT * FROM entries ORDER BY entry_date DESC'); // Adjust table name 
+  
+  res.render("homepage", { user ,entries: result.rows});
+
 });
 
 app.get("/addpage", (req, res) => {
@@ -111,10 +135,17 @@ app.get("/register", (req, res) => {
   }
 });
 
-app.get("/posts", (req, res) => {
+app.get("/posts", async(req, res) => {
   const user = req.user ? req.user : "guest";
-  res.render("posts", { user });
+  const result = await pool.query('SELECT * FROM entries ORDER BY entry_date DESC'); // Adjust table name  
+console.log(result);
+
+
+  res.render("posts", { user ,entries: result.rows});
 });
+
+
+
 
 ////post request
 
