@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Create Entry</title>
+    <title>Προσθήκη</title>
     <!-- If "public" is served statically, then "style.css" is at "/css/style.css" -->
     <link rel="stylesheet" href="/css/style.css" />
   </head>
@@ -12,15 +12,17 @@
     <center> <p id="message" class="border-danger text-danger p-3 text-center "> </p></center>
     <div class="d-flex justify-content-center">
 
-      <section class="create-section">
-        <h1>Create a New Entry</h1>
-
+      <section class="create-section my-4">
+     
+        <h1 class="m-auto my-4">Create a New Entry</h1>
         <form
           id="createForm"
           method="POST"
           action="/addpage"
           enctype="multipart/form-data"
         >
+  
+      <br>
           <div>
             <label class="form-control" for="title">Title</label>
             <input
@@ -67,14 +69,14 @@
             />
           </div>
 
-          <div class="image-upload">
+          <div class="image-upload ">
             <img
               src="/images/placeholder.jpg"
               alt="Placeholder"
-              class="preview-image"
+              class="preview-image m-auto"
             />
 
-            <input id="image" accept="image/*"  type="file" name="image" id="imageFile" multiple />
+            <input class="m-auto my-4" id="image" accept="image/*"  type="file" name="image" id="imageFile" multiple />
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>

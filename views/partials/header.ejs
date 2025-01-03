@@ -28,7 +28,7 @@
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/">Αρχική</a>
             <button
               class="navbar-toggler"
               type="button"
@@ -59,23 +59,23 @@
                       width="20"
                       height="20"
                     />
-                    Add Post</a
+                    Προσθήκη</a
                   >
                 </li>
                 <% }else{ %>
                 <li class="nav-item">
-                  <a href="/login" class="nav-link">Sign In</a>
+                  <a href="/login" class="nav-link">Είσοδος</a>
                 </li>
 
                 <li class="nav-item">
-                  <a href="/register" class="register-btn nav-link">Register</a>
+                  <a href="/register" class="register-btn nav-link">Εγγραφή</a>
                 </li>
                 <% }%>
                 <li class="nav-item">
-                  <a href="/posts" class="nav-link">Posts</a>
+                  <a href="/posts" class="nav-link">Αγγελίες</a>
                 </li>
                 <li class="nav-item">
-                  <a href="/contactus" class="nav-link">Contact</a>
+                  <a href="/contactus" class="nav-link">Επικοινωνία</a>
                 </li>
               </ul>
             </div>
@@ -87,7 +87,7 @@
             <% if (user !== "guest") { %>
             <div class="float-end" id="user">
               <h6 class="ml-2 p-2">
-                Welcome,
+                καλωσόρισες,
                 <a class="" href="#"> <%= user.username %> </a>!&nbsp;
               </h6>
               <ul id="userlist" class="text-center">

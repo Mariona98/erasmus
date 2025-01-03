@@ -1,5 +1,8 @@
 /* style.css */
-
+:root{
+  --boxshadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  --formbg:    #ffffffcc;
+}
 /* Reset or basic setup */
 * {
     margin: 0;
@@ -25,7 +28,7 @@ section {
     border-radius: 8px;
     padding: 6px;
     margin: 3px 0;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-shadow: var(--boxshadow);
     letter-spacing: 0.8px;
 }
 
@@ -143,11 +146,41 @@ main {
   /* Create Section */
   .create-section {
     padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+
+    background-image: url("../images/moonsky.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right center;
+   
+  }
+  .background{
+    margin: 0 auto;
+    width: 100%;
+    height: 300px;
+
+    background-image: url("../images/passport.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right center;
+    content: '';
+  }
+  #createForm{
+ background-color: var(--formbg);
+ padding: 20px;
+ border-radius: 8px;
+   
   }
   .create-section form {
     display: flex;
     flex-direction: column;
     max-width: 500px;
+    margin: 0 auto;
+    box-shadow: var(--boxshadow);
+    
   }
   .create-section form label {
     margin-top: 1rem;
@@ -171,15 +204,27 @@ main {
   /* Login Section */
   .login-section {
     padding: 1rem;
-    max-width: 400px;
+    max-width: 100%;
     margin: 0 auto;
+    width: 100%;
+  
+    background-image: url("../images/global-residence-index-addEU6TScGI-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right center;
 
   }
   .login-section form {
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    max-width: 400px;
+    background-color: var(--formbg);
+    border-radius: 8px;
+    padding: 42px;
+    box-shadow: var(--boxshadow);
+    
   }
- 
   /* Details Section */
   .details-section {
     padding: 1rem;
@@ -210,9 +255,9 @@ main {
     background-color: #57afc7;
   }
 
-  .listingwrapper{
+  /* .listingwrapper{
     height: 100vh;
-  }
+  } */
   @media only screen and (max-width: 800px) {
     #filterswrapper{
       display: block;
@@ -222,5 +267,12 @@ main {
   @media only screen and (max-width: 600px){
     .nav-right{
       display: none!important;
+    }
+    p,a{
+      font-size: 0.8em;
+    }
+    footer span {
+      font-size: 0.8em;
+      margin-top: 17px;
     }
   }
