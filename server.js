@@ -64,6 +64,12 @@ app.use(
 );
 app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.user = req.user || "guest";
+  next();
+});
+
+
 //retrieve images 
 app.get('/images/:id', async (req, res) => {
   try {
@@ -100,9 +106,9 @@ app.get("/addpage", (req, res) => {
     // if not login redirect to login page else to home page.
 
     res.render("addpage", { user });
-  } else {
+} else {
     res.redirect("/");
-  }
+ }
 });
 app.get("/logout", (req, res) => {
   req.logOut((err) => {
@@ -168,58 +174,54 @@ app.get("/post/:id", async (req, res) => {
 
 
 ////post request
-
 app.post("/register", async (req, res) => {
   let { username, email, password, confpassword, isAuthor } = req.body;
-
-  //validation
-  // console.log({ username, email, password, confpassword, isAuthor });
-
   let errors = [];
 
-  if (!username || !email | !password || !confpassword || !isAuthor) {
+  // Validation
+  if (!username || !email || !password || !confpassword) {
     errors.push({ message: "Please enter all fields" });
   }
   if (password.length < 6) {
     errors.push({ message: "Password must be at least 6 characters." });
   }
-  if (password != confpassword) {
+  if (password !== confpassword) {
     errors.push({ message: "Passwords do not match." });
   }
 
   if (errors.length > 0) {
-    res.render("register", { errors });
+    res.render("register", { errors, user: "guest" });
   } else {
-    // Form validation has passed
     let hashedPassword = await bcrypt.hash(password, 10);
-    console.log(hashedPassword);
-
     try {
       const results = await pool.query(
         "SELECT * FROM public.users WHERE email = $1",
         [email]
       );
-
       if (results.rows.length > 0) {
-        // User already exists, handle accordingly (e.g., send an error response)
-        errors.push({ message: "Email already register." });
-        res.render("register", { errors });
+        errors.push({ message: "Email already registered." });
+        res.render("register", { errors, user: "guest" });
       } else {
-        // Proceed to register the user (insert user in DB, etc.)
-        await pool.query(
-          `INSERT INTO users (username,email, password,admin) VALUES ($1, $2, $3, $4)RETURNING id , password`,
+        const newUser = await pool.query(
+          `INSERT INTO users (username, email, password, admin) 
+           VALUES ($1, $2, $3, $4) 
+           RETURNING id, username, email`,
           [username, email, hashedPassword, isAuthor]
         );
 
-        app.use(passport.initialize());
-        app.use(passport.session());
-
-        req.flash("success_msg", "You are now registered.");
-        res.redirect("/login"); // Redirect after successful registration
+        // Log in the new user automatically
+        req.login(newUser.rows[0], (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).send("Error logging in after registration");
+          }
+          req.flash("success_msg", "You are now registered and logged in.");
+          res.redirect("/"); // Redirect to homepage
+        });
       }
     } catch (err) {
-      console.error("Database query error:", err);
-      res.status(500).send("Internal Server Error"); // Handle error
+      console.error(err);
+      res.status(500).send("Internal Server Error");
     }
   }
 });
@@ -254,28 +256,63 @@ app.post("/login", (req, res, next) => {
 
 // new post entry
 app.post('/addpage', upload.single('image'), async (req, res) => {
-    try {
-      const { title, subheading, description, entry_date, endDate } = req.body;
+  try {
+      const {
+          title,
+          subheading,
+          description,
+          entryDate,  // Match the name attributes in the form
+          endDate,
+          country,
+          otherCountry,
+          ageLimitDown,
+          ageLimitUp,
+          link  // New field
+      } = req.body;
+
       const user_id = req.user.id;
       const imageName = req.file.originalname; // File name
       const imageData = req.file.buffer; // Image binary data
-      console.log(req);
+
+      // Determine the actual country value
+      const finalCountry = country === 'Other' ? otherCountry : country;
+
       const query = `
-        INSERT INTO entries (title, subheading, description, entry_date, end_date, image_name, image_data, user_id)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-        RETURNING *;
+          INSERT INTO entries (
+              title, subheading, description, entry_date, end_date,
+              country, age_limit_down, age_limit_up, image_name, image_data, link, user_id
+          )
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+          RETURNING *;
       `;
-      const values = [title, subheading, description, entry_date, endDate, imageName, imageData, user_id];
+
+      const values = [
+          title,
+          subheading,
+          description,
+          entryDate,
+          endDate,
+          finalCountry,
+          ageLimitDown || null, // Use null if no value provided
+          ageLimitUp || null,   // Use null if no value provided
+          imageName,
+          imageData,
+          link || null,         // Use null if no value provided
+          user_id
+      ];
+
       const result = await pool.query(query, values);
-      console.log(result)
-      
+
+      console.log(result);
+
       res.status(201).json({ message: 'Entry created successfully', entry: result.rows[0] });
-     
-    } catch (error) {
+  } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Failed to create entry' });
-    }
-  });
+  }
+});
+
+
 
 
 

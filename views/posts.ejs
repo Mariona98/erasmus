@@ -5,7 +5,6 @@
   <div class="container">
     <div class="row">
       <% entries.forEach(entry => { %>
-
       <div class="col-sm col-4">
         <div class="card">
           <a href="/post/<%= entry.id %>">
@@ -14,19 +13,34 @@
               <img src="/images/<%= entry.id %>" alt="Article Image" />
             </div>
             <div class="card-content">
-              <h5 class="card-heading"><%= entry.title %></h5>
+              <!-- Title -->
+              <h5 class="card-heading font-weight-bold"><%= entry.title %></h5>
 
-              <p class="card-subheading truncatelatest">
-                <%= entry.subheading %> | <%= entry.created_at %>
+              <!-- Dates -->
+              <p class="card-dates text-muted">
+                <strong>Dates:</strong> 
+                From <%= new Date(entry.entry_date).toLocaleDateString("en-GB") %> 
+                to <%= new Date(entry.end_date).toLocaleDateString("en-GB") %>
               </p>
-              <p class="card-tags">#cart</p>
+
+              <!-- Age Limits -->
+              <p class="card-ages text-muted">
+                <strong>Age Limits:</strong> 
+                <%= entry.age_limit_down || 'N/A' %> - <%= entry.age_limit_up || 'N/A' %>
+              </p>
+
+              <!-- Country -->
+              <p class="card-country text-muted">
+                <strong>Country:</strong> <%= entry.country %>
+              </p>
             </div>
           </a>
         </div>
       </div>
-
       <% }); %>
     </div>
+
+    <!-- Button to navigate to posts -->
     <div class="d-flex justify-content-end">
       <a class="text-white btn btn-primary" href="/posts">Up</a>
     </div>
