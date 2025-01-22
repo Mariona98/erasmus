@@ -92,13 +92,40 @@ app.get('/images/:id', async (req, res) => {
 
 
 // Routes
-app.get("/", async(req, res) => {
-  const user = req.user ? req.user : "guest"; // Use req.user if available, otherwise default to "guest"
-  const result = await pool.query('SELECT * FROM entries ORDER BY entry_date DESC'); // Adjust table name 
-  
-  res.render("homepage", { user ,entries: result.rows});
+app.get("/", async (req, res) => {
+  try {
+    const user = req.user ? req.user : "guest";
 
+    // Get filters from query parameters
+    const { country, month } = req.query;
+
+    let query = "SELECT * FROM entries WHERE 1=1"; // Base query
+    const params = [];
+
+    // Add country filter if specified
+    if (country) {
+      params.push(country);
+      query += ` AND country = $${params.length}`;
+    }
+
+    // Add month filter if specified
+    if (month) {
+      params.push(month);
+      query += ` AND EXTRACT(MONTH FROM entry_date) = $${params.length}`;
+    }
+
+    query += " ORDER BY entry_date DESC"; // Add ordering clause
+
+    // Execute the query
+    const result = await pool.query(query, params);
+
+    res.render("homepage", { user, entries: result.rows });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error loading homepage");
+  }
 });
+
 
 app.get("/addpage", (req, res) => {
   const user = req.user ? req.user : "guest"; // Use req.user if available, otherwise default to "guest"
