@@ -130,15 +130,16 @@
   </div>
 </div>
 <script>
-  document.getElementById("searchBtn").addEventListener("click", () => {
+document.getElementById("searchBtn").addEventListener("click", () => {
   const country = document.getElementById("country").value;
   const month = document.getElementById("month").value;
-  
-  // Build query string
+  const days = document.getElementById("days").value;
+
   let query = "?";
   if (country) query += `country=${country}&`;
   if (month) query += `month=${month}&`;
- 
+  if (days) query += `days=${days}&`;
+
   // Redirect to filtered results
   window.location.href = "/" + query.slice(0, -1); // Remove trailing '&'
 });

@@ -49,14 +49,14 @@
 
             <label class="form-control" for="link">Link</label>
             <input
-             class="form-control"
-            type="text"
-             id="link"
-               name="link"
-             placeholder="Enter a URL"
-          />
+              class="form-control"
+              type="text"
+              id="link"
+              name="link"
+              placeholder="Enter a URL"
+            />
 
-
+            <!-- Entry and End Dates -->
             <label for="entryDate">Entry Date</label>
             <input
               id="entryDate"
@@ -64,6 +64,7 @@
               type="date"
               name="entryDate"
               required
+              onchange="calculateDays()"
             />
             <label for="endDate">End Date</label>
             <input
@@ -72,6 +73,18 @@
               type="date"
               name="endDate"
               required
+              onchange="calculateDays()"
+            />
+
+            <!-- Days Calculated -->
+            <label for="days">Number of Days:</label>
+            <input
+              id="days"
+              class="form-control"
+              type="number"
+              name="days"
+              readonly
+              placeholder="Calculated automatically"
             />
           </div>
 
@@ -167,17 +180,38 @@
       </section>
     </div>
 
-    <!-- Include header dynamically -->
+    <!-- Include footer dynamically -->
     <%- include('partials/footer.ejs') %>
 
     <script>
+      // Calculate the number of days and display it
+      function calculateDays() {
+        const entryDate = document.getElementById("entryDate").value;
+        const endDate = document.getElementById("endDate").value;
+        const daysInput = document.getElementById("days");
+
+        if (entryDate && endDate) {
+          const start = new Date(entryDate);
+          const end = new Date(endDate);
+
+          // Calculate the difference in milliseconds and convert to days
+          const diffTime = Math.abs(end - start);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          // Update the days input
+          daysInput.value = diffDays;
+        } else {
+          daysInput.value = ""; // Clear the input if dates are missing
+        }
+      }
+
       // Show "Other" input field if "Other" is selected in the dropdown
       function toggleOtherCountryInput(selectElement) {
-        const otherCountryInput = document.getElementById('otherCountry');
-        if (selectElement.value === 'Other') {
-          otherCountryInput.style.display = 'block';
+        const otherCountryInput = document.getElementById("otherCountry");
+        if (selectElement.value === "Other") {
+          otherCountryInput.style.display = "block";
         } else {
-          otherCountryInput.style.display = 'none';
+          otherCountryInput.style.display = "none";
         }
       }
     </script>

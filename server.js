@@ -97,7 +97,7 @@ app.get("/", async (req, res) => {
     const user = req.user ? req.user : "guest";
 
     // Get filters from query parameters
-    const { country, month } = req.query;
+    const { country, month, days } = req.query; // Include `days` as a query parameter
 
     let query = "SELECT * FROM entries WHERE 1=1"; // Base query
     const params = [];
@@ -114,6 +114,12 @@ app.get("/", async (req, res) => {
       query += ` AND EXTRACT(MONTH FROM entry_date) = $${params.length}`;
     }
 
+    // Add days filter if specified
+    if (days) {
+      params.push(parseInt(days, 10)); // Parse days as an integer
+      query += ` AND days = $${params.length}`; // Filter entries matching the exact number of days
+    }
+
     query += " ORDER BY entry_date DESC"; // Add ordering clause
 
     // Execute the query
@@ -125,6 +131,8 @@ app.get("/", async (req, res) => {
     res.status(500).send("Error loading homepage");
   }
 });
+
+
 
 
 app.get("/addpage", (req, res) => {
@@ -284,60 +292,66 @@ app.post("/login", (req, res, next) => {
 // new post entry
 app.post('/addpage', upload.single('image'), async (req, res) => {
   try {
-      const {
-          title,
-          subheading,
-          description,
-          entryDate,  // Match the name attributes in the form
-          endDate,
-          country,
-          otherCountry,
-          ageLimitDown,
-          ageLimitUp,
-          link  // New field
-      } = req.body;
+    const {
+      title,
+      subheading,
+      description,
+      entryDate, // Match the name attributes in the form
+      endDate,
+      country,
+      otherCountry,
+      ageLimitDown,
+      ageLimitUp,
+      link // New field
+    } = req.body;
 
-      const user_id = req.user.id;
-      const imageName = req.file.originalname; // File name
-      const imageData = req.file.buffer; // Image binary data
+    const user_id = req.user.id;
+    const imageName = req.file.originalname; // File name
+    const imageData = req.file.buffer; // Image binary data
 
-      // Determine the actual country value
-      const finalCountry = country === 'Other' ? otherCountry : country;
+    // Calculate the number of days (difference between endDate and entryDate)
+    const days = Math.ceil((new Date(endDate) - new Date(entryDate)) / (1000 * 60 * 60 * 24));
 
-      const query = `
-          INSERT INTO entries (
-              title, subheading, description, entry_date, end_date,
-              country, age_limit_down, age_limit_up, image_name, image_data, link, user_id
-          )
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-          RETURNING *;
-      `;
+    // Determine the actual country value
+    const finalCountry = country === 'Other' ? otherCountry : country;
 
-      const values = [
-          title,
-          subheading,
-          description,
-          entryDate,
-          endDate,
-          finalCountry,
-          ageLimitDown || null, // Use null if no value provided
-          ageLimitUp || null,   // Use null if no value provided
-          imageName,
-          imageData,
-          link || null,         // Use null if no value provided
-          user_id
-      ];
+    // Updated query to include the `days` column
+    const query = `
+      INSERT INTO entries (
+        title, subheading, description, entry_date, end_date, days,
+        country, age_limit_down, age_limit_up, image_name, image_data, link, user_id
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      RETURNING *;
+    `;
 
-      const result = await pool.query(query, values);
+    const values = [
+      title,
+      subheading,
+      description,
+      entryDate,
+      endDate,
+      days, // Include the calculated days value
+      finalCountry,
+      ageLimitDown || null, // Use null if no value provided
+      ageLimitUp || null,   // Use null if no value provided
+      imageName,
+      imageData,
+      link || null,         // Use null if no value provided
+      user_id
+    ];
 
-      console.log(result);
+    const result = await pool.query(query, values);
 
-      res.status(201).json({ message: 'Entry created successfully', entry: result.rows[0] });
+    console.log(result);
+
+    res.status(201).json({ message: 'Entry created successfully', entry: result.rows[0] });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to create entry' });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create entry' });
   }
 });
+
 
 
 
