@@ -56,7 +56,19 @@ main {
     display: flex;
     justify-content: space-between;
     background-color: #63c7e3;
-    padding: 1rem;
+   padding: 1rem;
+  }
+  .nav-item{
+    width: fit-content;
+    padding: 5px;
+    margin: 0 auto;
+    border-radius: .25rem;
+  }
+  .nav-item:hover{
+    background-color: #0d6efd36; 
+  }
+  .nav-item a{
+    padding: 3px;
   }
   .nav-link{
     text-wrap-mode: nowrap;
@@ -288,9 +300,7 @@ main {
     .nav-right{
       display: none!important;
     }
-    p,a{
-      font-size: 0.8em;
-    }
+
     footer span {
       font-size: 0.8em;
       margin-top: 17px;
