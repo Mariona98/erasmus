@@ -37,34 +37,14 @@
     <option value="Other">Other</option>
   </select>
 
-  <label for="month" class="mt-3">Month:</label>
-  <select id="month" class="form-select mt-2">
-    <option value="" selected disabled>Select a month</option>
-    <option value="01">January</option>
-    <option value="02">February</option>
-    <option value="03">March</option>
-    <option value="04">April</option>
-    <option value="05">May</option>
-    <option value="06">June</option>
-    <option value="07">July</option>
-    <option value="08">August</option>
-    <option value="09">September</option>
-    <option value="10">October</option>
-    <option value="11">November</option>
-    <option value="12">December</option>
-  </select>
+  <label for="startDate">Start Date:</label>
+  <input type="date" class="form-control mt-2" id="startDate" />
 
-  <label for="days" class="mt-3">Number of Days:</label>
-  <select id="days" class="form-select mt-2">
-    <option value="" selected disabled>Select number of days</option>
-    <% for (let i = 1; i <= 20; i++) { %>
-      <option value="<%= i %>"><%= i %> day<%= i > 1 ? 's' : '' %></option>
-    <% } %>
-  </select>
+  <label for="endDate">End Date:</label>
+  <input type="date" class="form-control mt-2" id="endDate" />
 
-  <button id="searchBtn" type="button" class="btn btn-primary mt-3">Search</button>
+  <button id="searchBtn" type="submit" class="btn btn-primary">Search</button>
 </div>
-
 <div class="listingwrapper">
   <div class="background"></div>
   <!-- Listing Section -->
@@ -72,59 +52,64 @@
   
     <div class="container">
       <div class="row">
+        <center><h3 class="p-4 mt-6">Latests posts</h3></center>
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-image">
+             
+              <img src="/images/<%= entries[0].id %>" alt="Article Image" />
+            </div>
+            <div class="card-content">
+              <h5 class="card-heading"><%= entries[0].title %></h5>
 
-        <center><h3 class="p-4">Posts</h3></center>
+              <p class="card-subheading truncate">
+                <%= entries[0].subheading %> | <%= entries[0].created_at %>
+              </p>
+              <p class="card-tags">#cart</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-image">
+              <!-- Remove "/public" in the src attribute -->
+              <img src="/images/<%= entries[1].id %>" alt="Article Image" />
+            </div>
+            <div class="card-content">
+              <h5 class="card-heading"><%= entries[1].title %></h5>
+
+              <p class="card-subheading truncate">
+                <%= entries[1].subheading %> | <%= entries[1].created_at %>
+              </p>
+              <p class="card-tags">#cart</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 60px 0px">
+        <center><h3 class="p-4">Older posts</h3></center>
         <% entries.forEach((entry, index) => { %> 
-<<<<<<< HEAD
           <% if(index > 1) { %> <!-- Skip the first two entries (index 0 and 1) -->
             <div class="col-sm  mt-6">
-=======
-          <% 
-            // Calculate the number of days for the current entry
-            const totalDays = Math.ceil((new Date(entry.end_date) - new Date(entry.entry_date)) / (1000 * 60 * 60 * 24)); 
-            
-          %>
-        
-          <% if (index > -1 ) { %> 
-            <div class="col-sm col-4 mt-6">
->>>>>>> 6fbe56bff7c898ccbf1e79b00ee5848dd4607a62
               <div class="card">
-                <!-- Wrap the card with an anchor tag to make it clickable -->
-                <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
-                  <div class="card-image">
-                    <img src="/images/<%= entry.id %>" alt="Article Image" />
-                  </div>
-                  <div class="card-content">
-                    <!-- Title in bold -->
-                    <h5 class="card-heading" style="font-weight: bold;"><%= entry.title %></h5>
-                
-                    <!-- Country -->
-                    <p class="card-subheading" style="margin: 0;">
-                      <strong>Country:</strong> <%= entry.country %>
-                    </p>
-                
-                    <!-- Age limits -->
-                    <p class="card-subheading" style="margin: 0;">
-                      <strong>Ages:</strong> <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
-                    </p>
-                
-                    <!-- Dates -->
-                    <p class="card-subheading" style="margin: 0;">
-                      <strong>Dates:</strong>
-                      <%= new Date(entry.entry_date).toLocaleDateString('en-GB') %> to 
-                      <%= new Date(entry.end_date).toLocaleDateString('en-GB') %>
-                      <!-- Calculate and display the days -->
-                      <span style="margin-left: 10px; font-size: 0.8em; opacity: 0.6;">
-                        (<%= totalDays %> days)
-                      </span>
-                    </p>
-                  </div>
-                </a>
+                <div class="card-image">
+                 
+                  <img src="/images/<%= entry.id %>" alt="Article Image" />
+                </div>
+                <div class="card-content">
+                  <h5 class="card-heading"><%= entry.title %></h5>
+      
+                  <p class="card-subheading truncatelatest">
+                    <%= entry.subheading %> | <%= entry.created_at %>git 
+                  </p>
+                  <p class="card-tags">#cart</p>
+                </div>
               </div>
             </div>
           <% } %> <!-- End of if statement -->
         <% }); %> <!-- End of forEach loop -->
-        
+      
         <div class="d-flex justify-content-end">
           <a class="text-white btn btn-primary" href="/posts">More</a>
         </div>
@@ -134,23 +119,5 @@
     </div>
   </div>
 </div>
-<script>
-document.getElementById("searchBtn").addEventListener("click", () => {
-  const country = document.getElementById("country").value;
-  const month = document.getElementById("month").value;
-  const days = document.getElementById("days").value;
-
-  let query = "?";
-  if (country) query += `country=${country}&`;
-  if (month) query += `month=${month}&`;
-  if (days) query += `days=${days}&`;
-
-  // Redirect to filtered results
-  window.location.href = "/" + query.slice(0, -1); // Remove trailing '&'
-});
-
-
-</script>
 <!-- Repeat more cards as needed -->
 <%- include('partials/footer.ejs') %>
-
