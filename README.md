@@ -36,6 +36,29 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     admin BOOLEAN DEFAULT FALSE
 );
+
+#### create users table updated
+
+-- Table: public.users
+
+-- DROP TABLE IF EXISTS public.users;
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+    username character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    admin boolean DEFAULT false,
+    CONSTRAINT users_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to admin;
+
+GRANT ALL ON TABLE public.users TO admin;
 ```
 #### create the entries table 
 ```bash
@@ -51,6 +74,41 @@ CREATE TABLE entries (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
     user_id INT REFERENCES users(id) ON DELETE CASCADE  -- Foreign key referencing the users table  
 );
+
+#### create entries update (just put it as it is on sql )
+-- Table: public.entries
+
+-- DROP TABLE IF EXISTS public.entries;
+
+CREATE TABLE IF NOT EXISTS public.entries
+(
+    id integer NOT NULL DEFAULT nextval('entries_id_seq'::regclass),
+    title character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    subheading character varying(255) COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    entry_date date,
+    end_date date,
+    image_data bytea,
+    image_name character varying(255) COLLATE pg_catalog."default",
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    user_id integer,
+    country character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    age_limit_up integer,
+    age_limit_down integer,
+    link text COLLATE pg_catalog."default",
+    CONSTRAINT entries_pkey PRIMARY KEY (id),
+    CONSTRAINT entries_user_id_fkey FOREIGN KEY (user_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.entries
+    OWNER to admin;
+
+GRANT ALL ON TABLE public.entries TO admin;
 ```
 
 ##  Create the `.env` File

@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <title>Προσθήκη</title>
-    <!-- If "public" is served statically, then "style.css" is at "/css/style.css" -->
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <!-- Include header dynamically -->
     <%- include('partials/header.ejs') %>
-    <center> <p id="message" class="border-danger text-danger p-3 text-center "> </p></center>
+    <center>
+      <p id="message" class="border-danger text-danger p-3 text-center"></p>
+    </center>
     <div class="d-flex justify-content-center">
-
       <section class="create-section my-4">
-     
         <h1 class="m-auto my-4">Create a New Entry</h1>
         <form
           id="createForm"
@@ -21,8 +20,7 @@
           action="/addpage"
           enctype="multipart/form-data"
         >
-  
-      <br>
+          <br />
           <div>
             <label class="form-control" for="title">Title</label>
             <input
@@ -41,9 +39,7 @@
               name="subheading"
             />
 
-            <label class="form-control" for="description"
-              >Add Description</label
-            >
+            <label class="form-control" for="description">Add Description</label>
             <textarea
               class="form-control"
               id="description"
@@ -51,6 +47,16 @@
               required
             ></textarea>
 
+            <label class="form-control" for="link">Link</label>
+            <input
+              class="form-control"
+              type="text"
+              id="link"
+              name="link"
+              placeholder="Enter a URL"
+            />
+
+            <!-- Entry and End Dates -->
             <label for="entryDate">Entry Date</label>
             <input
               id="entryDate"
@@ -58,6 +64,7 @@
               type="date"
               name="entryDate"
               required
+              onchange="calculateDays()"
             />
             <label for="endDate">End Date</label>
             <input
@@ -66,17 +73,106 @@
               type="date"
               name="endDate"
               required
+              onchange="calculateDays()"
+            />
+
+            <!-- Days Calculated -->
+            <label for="days">Number of Days:</label>
+            <input
+              id="days"
+              class="form-control"
+              type="number"
+              name="days"
+              readonly
+              placeholder="Calculated automatically"
             />
           </div>
 
-          <div class="image-upload ">
+          <!-- Country Dropdown -->
+          <label class="form-control" for="country">Country</label>
+          <select
+            id="country"
+            class="form-control"
+            name="country"
+            onchange="toggleOtherCountryInput(this)"
+          >
+            <option value="" selected disabled>Select a country</option>
+            <option value="Austria">Austria</option>
+            <option value="Belgium">Belgium</option>
+            <option value="Bulgaria">Bulgaria</option>
+            <option value="Croatia">Croatia</option>
+            <option value="Cyprus">Cyprus</option>
+            <option value="Czech Republic">Czech Republic</option>
+            <option value="Denmark">Denmark</option>
+            <option value="Estonia">Estonia</option>
+            <option value="Finland">Finland</option>
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="Greece">Greece</option>
+            <option value="Hungary">Hungary</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Italy">Italy</option>
+            <option value="Latvia">Latvia</option>
+            <option value="Lithuania">Lithuania</option>
+            <option value="Luxembourg">Luxembourg</option>
+            <option value="Malta">Malta</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Poland">Poland</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Romania">Romania</option>
+            <option value="Slovakia">Slovakia</option>
+            <option value="Slovenia">Slovenia</option>
+            <option value="Spain">Spain</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <!-- Input for "Other" country -->
+          <input
+            type="text"
+            id="otherCountry"
+            class="form-control mt-2"
+            name="otherCountry"
+            placeholder="Specify your country"
+            style="display: none;"
+          />
+
+          <!-- Age Limits -->
+          <div class="mt-4">
+            <label for="ageLimitDown">Minimum Age Limit:</label>
+            <input
+              type="number"
+              id="ageLimitDown"
+              name="ageLimitDown"
+              class="form-control"
+              placeholder="Enter minimum age"
+            />
+
+            <label for="ageLimitUp" class="mt-2">Maximum Age Limit:</label>
+            <input
+              type="number"
+              id="ageLimitUp"
+              name="ageLimitUp"
+              class="form-control"
+              placeholder="Enter maximum age"
+            />
+          </div>
+
+          <!-- Image Upload -->
+          <div class="image-upload">
             <img
               src="/images/placeholder.jpg"
               alt="Placeholder"
               class="preview-image m-auto"
             />
-
-            <input class="m-auto my-4" id="image" accept="image/*"  type="file" name="image" id="imageFile" multiple />
+            <input
+              class="m-auto my-4"
+              id="image"
+              accept="image/*"
+              type="file"
+              name="image"
+              multiple
+            />
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -84,9 +180,40 @@
       </section>
     </div>
 
-    <!-- Include header dynamically -->
+    <!-- Include footer dynamically -->
     <%- include('partials/footer.ejs') %>
+
+    <script>
+      // Calculate the number of days and display it
+      function calculateDays() {
+        const entryDate = document.getElementById("entryDate").value;
+        const endDate = document.getElementById("endDate").value;
+        const daysInput = document.getElementById("days");
+
+        if (entryDate && endDate) {
+          const start = new Date(entryDate);
+          const end = new Date(endDate);
+
+          // Calculate the difference in milliseconds and convert to days
+          const diffTime = Math.abs(end - start);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          // Update the days input
+          daysInput.value = diffDays;
+        } else {
+          daysInput.value = ""; // Clear the input if dates are missing
+        }
+      }
+
+      // Show "Other" input field if "Other" is selected in the dropdown
+      function toggleOtherCountryInput(selectElement) {
+        const otherCountryInput = document.getElementById("otherCountry");
+        if (selectElement.value === "Other") {
+          otherCountryInput.style.display = "block";
+        } else {
+          otherCountryInput.style.display = "none";
+        }
+      }
+    </script>
   </body>
 </html>
-
-
