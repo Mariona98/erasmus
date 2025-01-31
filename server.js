@@ -370,8 +370,7 @@ app.post('/send', (req, res) => {
     // auth: {  
     //   user: process.env.YAHOO_EMAIL, // Use email from .env file  
     //         pass: process.env.YAHOO_PASSWORD, // Use password from .env file  
-    //     // user: 'kate_sarant@yahoo.gr', // Your email  
-    //     // pass: 'hfmacpihvalltfqb', // Your email password  
+      
     host: "sandbox.smtp.mailtrap.io",
     port: 2525,
     auth: {
