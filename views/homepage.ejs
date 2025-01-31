@@ -49,17 +49,15 @@
   <div class="background"></div>
   <!-- Listing Section -->
   <div class="listing">
-  
     <div class="container">
       <div class="row">
         <% if(!entries[0]){ %>
-          <p>No entries yet!</p>
-          <% }else{ %>
+        <p>No entries yet!</p>
+        <% }else{ %>
         <center><h3 class="p-4 mt-6">Latests posts</h3></center>
         <div class="col-sm">
           <div class="card">
             <div class="card-image">
-             
               <img src="/images/<%= entries[0].id %>" alt="Article Image" />
             </div>
             <div class="card-content">
@@ -72,6 +70,7 @@
             </div>
           </div>
         </div>
+        <% } %> <% if(entries[1]){ %>
 
         <div class="col-sm">
           <div class="card">
@@ -89,36 +88,38 @@
             </div>
           </div>
         </div>
+        <% };%>
       </div>
+      <% if(entries.length > 2){ %>
       <div class="row" style="margin: 60px 0px">
         <center><h3 class="p-4">Older posts</h3></center>
-        <% entries.forEach((entry, index) => { %> 
-          <% if(index > 1) { %> <!-- Skip the first two entries (index 0 and 1) -->
-            <div class="col-md-4 col-lg-4   mt-6">
-              <div class="card">
-                <div class="card-image">
-                 
-                  <img src="/images/<%= entry.id %>" alt="Article Image" />
-                </div>
-                <div class="card-content">
-                  <h5 class="card-heading"><%= entry.title %></h5>
-      
-                  <p class="card-subheading truncatelatest">
-                    <%= entry.subheading %> | <%= entry.created_at %>git 
-                  </p>
-                  <p class="card-tags">#cart</p>
-                </div>
-              </div>
+        <% entries.forEach((entry, index) => { %> <% if(index > 1) { %>
+        <!-- Skip the first two entries (index 0 and 1) -->
+        <div class="col-md-4 col-lg-4 mt-6">
+          <div class="card">
+            <div class="card-image">
+              <img src="/images/<%= entry.id %>" alt="Article Image" />
             </div>
-          <% } %> <!-- End of if statement -->
-        <% }); %> <!-- End of forEach loop -->
-      
+            <div class="card-content">
+              <h5 class="card-heading"><%= entry.title %></h5>
+
+              <p class="card-subheading truncatelatest">
+                <%= entry.subheading %> | <%= entry.created_at %>git
+              </p>
+              <p class="card-tags">#cart</p>
+            </div>
+          </div>
+        </div>
+        <% }; %>
+        <!-- End of if statement -->
+        <% }); %>
+        <!-- End of forEach loop -->
+
         <div class="d-flex justify-content-end">
           <a class="text-white btn btn-primary" href="/posts">More</a>
         </div>
       </div>
-      <% } %>
-      
+      <% }; %>
     </div>
   </div>
 </div>
