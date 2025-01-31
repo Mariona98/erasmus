@@ -60,55 +60,49 @@ ALTER TABLE IF EXISTS public.users
 
 GRANT ALL ON TABLE public.users TO admin;
 ```
+
 #### create the entries table 
+
 ```bash
-CREATE TABLE entries (  
-    id SERIAL PRIMARY KEY,  
-    title VARCHAR(255) NOT NULL,  
-    subheading VARCHAR(255),  
-    description TEXT,  
-    entry_date DATE,  
-    end_date DATE,  
-    image_data BYTEA,  -- to store the image as binary data ,
- image_name VARCHAR(255)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
-    user_id INT REFERENCES users(id) ON DELETE CASCADE  -- Foreign key referencing the users table  
-);
+#### create entries 
+REATE SEQUENCE entries_id_seq  
+    START WITH 1  
+    INCREMENT BY 1  
+    NO MINVALUE  
+    NO MAXVALUE  
+    CACHE 1;
 
-#### create entries update (just put it as it is on sql )
--- Table: public.entries
 
--- DROP TABLE IF EXISTS public.entries;
+CREATE TABLE IF NOT EXISTS public.entries  
+(  
+    id integer NOT NULL DEFAULT nextval('entries_id_seq'::regclass),  
+    title character varying(255) COLLATE pg_catalog."default" NOT NULL,  
+    subheading character varying(255) COLLATE pg_catalog."default",  
+    description text COLLATE pg_catalog."default",  
+    entry_date date,  
+    end_date date,  
+    image_data bytea,  
+    image_name character varying(255) COLLATE pg_catalog."default",  
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,  
+    user_id integer,  
+    country character varying(255) COLLATE pg_catalog."default" NOT NULL, 
+    days integer,
+    age_limit_up integer,  
+    age_limit_down integer,  
+    link text COLLATE pg_catalog."default",  
+    CONSTRAINT entries_pkey PRIMARY KEY (id),  
+    CONSTRAINT entries_user_id_fkey FOREIGN KEY (user_id)  
+        REFERENCES public.users (id) MATCH SIMPLE  
+        ON UPDATE NO ACTION  
+        ON DELETE CASCADE  
+)  
+TABLESPACE pg_default;  
 
-CREATE TABLE IF NOT EXISTS public.entries
-(
-    id integer NOT NULL DEFAULT nextval('entries_id_seq'::regclass),
-    title character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    subheading character varying(255) COLLATE pg_catalog."default",
-    description text COLLATE pg_catalog."default",
-    entry_date date,
-    end_date date,
-    image_data bytea,
-    image_name character varying(255) COLLATE pg_catalog."default",
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    user_id integer,
-    country character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    age_limit_up integer,
-    age_limit_down integer,
-    link text COLLATE pg_catalog."default",
-    CONSTRAINT entries_pkey PRIMARY KEY (id),
-    CONSTRAINT entries_user_id_fkey FOREIGN KEY (user_id)
-        REFERENCES public.users (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-)
+-- Change the owner of the entries table to 'admin'  
+ALTER TABLE IF EXISTS public.entries  
+    OWNER TO admin;  
 
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.entries
-    OWNER to admin;
-
-GRANT ALL ON TABLE public.entries TO admin;
+-- Grant all privileges on the entries table to 'admin'  
 ```
 
 ##  Create the `.env` File

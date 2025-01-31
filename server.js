@@ -1,7 +1,7 @@
 // server.js
 
  // to work with directories
-
+ require('dotenv').config(); 
 const bcrypt = require("bcrypt");
 const bodyParser = require('body-parser');
 const express = require("express");
@@ -366,15 +366,22 @@ app.post('/send', (req, res) => {
   const { email_contact, subject_contact, msg_contact } = req.body; 
 
   const transporter = nodemailer.createTransport({  
-    service: 'Yahoo', // or another email service  
-    auth: {  
-        user: 'kate_sarant@yahoo.gr', // Your email  
-        pass: 'hfmacpihvalltfqb', // Your email password  
+    // service: 'Yahoo', // or another email service  
+    // auth: {  
+    //   user: process.env.YAHOO_EMAIL, // Use email from .env file  
+    //         pass: process.env.YAHOO_PASSWORD, // Use password from .env file  
+    //     // user: 'kate_sarant@yahoo.gr', // Your email  
+    //     // pass: 'hfmacpihvalltfqb', // Your email password  
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: "c6e670b1be4238",
+      pass: "38e16320ee79f2"
     },  
 }); 
 const mailOptions = {  
   from: email_contact, // Email of the user  
-  to: 'kate_sarant@yahoo.gr', // The recipient's email address  
+  to: process.env.YAHOO_EMAIL, // The recipient's email address  
   subject: subject_contact, // The subject of the email
   text: `Message from ${email_contact}: ${msg_contact}`, // Include the user's email in the message  
 }; 

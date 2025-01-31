@@ -56,6 +56,7 @@
         <% }else{ %>
         <center><h3 class="p-4 mt-6">Latests posts</h3></center>
         <div class="col-sm">
+          <a href="/post/<%= entries[0].id %>" class="card-link" style="text-decoration: none; color: inherit;">
           <div class="card">
             <div class="card-image">
               <img src="/images/<%= entries[0].id %>" alt="Article Image" />
@@ -64,15 +65,21 @@
               <h5 class="card-heading"><%= entries[0].title %></h5>
 
               <p class="card-subheading truncate">
-                <%= entries[0].subheading %> | <%= entries[0].created_at %>
+                <%= entries[0].subheading %> 
               </p>
               <p class="card-tags">#cart</p>
+              <p style="float:right;font-size: 14px;">posted at <%= new Date(entries[0].created_at).toString().substring(0, 16) %></p>
+
             </div>
           </div>
+        </a>
         </div>
+
+        
         <% } %> <% if(entries[1]){ %>
 
         <div class="col-sm">
+          <a href="/post/<%= entries[0].id %>" class="card-link" style="text-decoration: none; color: inherit;">
           <div class="card">
             <div class="card-image">
               <!-- Remove "/public" in the src attribute -->
@@ -82,11 +89,14 @@
               <h5 class="card-heading"><%= entries[1].title %></h5>
 
               <p class="card-subheading truncate">
-                <%= entries[1].subheading %> | <%= entries[1].created_at %>
+                <%= entries[1].subheading %> 
               </p>
               <p class="card-tags">#cart</p>
+              <p style="float:right;font-size: 14px;">posted at <%= new Date(entries[1].created_at).toString().substring(0, 16) %></p>
+
             </div>
           </div>
+          </a>
         </div>
         <% };%>
       </div>
@@ -96,6 +106,7 @@
         <% entries.forEach((entry, index) => { %> <% if(index > 1) { %>
         <!-- Skip the first two entries (index 0 and 1) -->
         <div class="col-md-4 col-lg-4 mt-6">
+          <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
           <div class="card">
             <div class="card-image">
               <img src="/images/<%= entry.id %>" alt="Article Image" />
@@ -104,11 +115,14 @@
               <h5 class="card-heading"><%= entry.title %></h5>
 
               <p class="card-subheading truncatelatest">
-                <%= entry.subheading %> | <%= entry.created_at %>git
+                <%= entry.subheading %>  
               </p>
+              
               <p class="card-tags">#cart</p>
+              <p style="float:right;font-size: 12px;">posted at <%= new Date(entry.created_at).toString().substring(0, 16) %></p>
             </div>
           </div>
+          </a>
         </div>
         <% }; %>
         <!-- End of if statement -->
