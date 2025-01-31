@@ -20,6 +20,11 @@ body {
 footer {
   box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px -1px 2px 0px;
+  position: absolute;
+  background-color: #63c7e3;
+  bottom: 0;
+  position: relative;
+  width: 100%;
 }
 header {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
@@ -29,7 +34,7 @@ section {
   display: flex;
   flex-direction: column;
   margin-top: 5%;
-  min-height: 100vh; /* Ensures the footer is at the bottom of the viewport */
+  height: 100%; /* Ensures the footer is at the bottom of the viewport */
 }
 .contact-section {
   max-width: 550px;
@@ -42,6 +47,10 @@ section {
 }
 .contact-section p {
   margin: 70px 0;
+
+  word-break: break-word;
+  padding: 10px;
+  text-align: justify;
 }
 .messages {
   list-style: none;
@@ -73,6 +82,7 @@ body {
   background-color: #b3e6f36e !important; /* your Figma background color (light blue) */
   color: #333;
 }
+
 main {
   flex: 1; /* This allows the main content area to grow and fill available space */
 }
@@ -101,13 +111,7 @@ main {
   text-wrap-mode: nowrap;
   text-align: center;
 }
-footer {
-  background-color: #63c7e3;
-  bottom: 0;
-  position: relative;
-  width: 100%;
-  margin-top: 5%;
-}
+
 .bi {
   vertical-align: -0.125em;
   fill: rgb(82, 86, 88);
@@ -164,7 +168,7 @@ footer {
   padding: 1rem;
   margin-top: 70px;
 }
-center{
+center {
   margin: 30px 0px !important ;
 }
 .card {
@@ -184,7 +188,6 @@ center{
   max-width: 100%;
   height: 280px;
   border-radius: 8px 8px 0 0;
-  
 }
 .card-content {
   padding: 1rem;
@@ -238,6 +241,10 @@ center{
   background-position: right center;
   content: "";
   margin-top: 25px;
+}
+.form-signin{
+  position: relative;
+    top: 13%;
 }
 #createForm {
   background-color: var(--formbg);
