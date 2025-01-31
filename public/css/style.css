@@ -39,6 +39,9 @@ img,svg,a,p{
 a{
   text-decoration: none!important;
 }
+h5{
+  text-transform: capitalize;
+}
 .primary{
   background-color: rgb(28 101 167);
 }
@@ -66,6 +69,8 @@ main {
   }
   .nav-item:hover{
     background-color: #0d6efd36; 
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    
   }
   .nav-item a{
     padding: 3px;
@@ -146,16 +151,29 @@ main {
     display: flex;
     border: 1px solid #ccc;
     border-radius: 8px!important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
+  }
+  .card-image{
+    max-width: 550px;
+    margin: 0 auto;
   }
   .card-image img {
     width: 100%;
     max-width: 100%;
     height:280px;
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 8px;
+    margin-top: 15px;
   }
   .card-content {
     padding: 1rem;
+  }
+  .socal-link{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+
+  }
+  .social-link :hover{
+    color:#0d6efd;
   }
   .truncate {
     display: -webkit-box;

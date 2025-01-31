@@ -52,6 +52,9 @@
   
     <div class="container">
       <div class="row">
+        <% if(!entries[0]){ %>
+          <p>No entries yet!</p>
+          <% }else{ %>
         <center><h3 class="p-4 mt-6">Latests posts</h3></center>
         <div class="col-sm">
           <div class="card">
@@ -91,7 +94,7 @@
         <center><h3 class="p-4">Older posts</h3></center>
         <% entries.forEach((entry, index) => { %> 
           <% if(index > 1) { %> <!-- Skip the first two entries (index 0 and 1) -->
-            <div class="col-sm  mt-6">
+            <div class="col-md-4 col-lg-4   mt-6">
               <div class="card">
                 <div class="card-image">
                  
@@ -114,7 +117,7 @@
           <a class="text-white btn btn-primary" href="/posts">More</a>
         </div>
       </div>
-      
+      <% } %>
       
     </div>
   </div>
