@@ -50,8 +50,9 @@
             <label class="form-control" for="link">Link</label>
             <input
               class="form-control"
-              type="text"
+              type="url"
               id="link"
+              pattern="^(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z]{2,6}(\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))?$" 
               name="link"
               placeholder="Enter a URL"
             />
@@ -145,6 +146,8 @@
               id="ageLimitDown"
               name="ageLimitDown"
               class="form-control"
+              min="18"
+              max="30"
               placeholder="Enter minimum age"
             />
 
@@ -152,6 +155,8 @@
             <input
               type="number"
               id="ageLimitUp"
+              min="18"
+              max="30"
               name="ageLimitUp"
               class="form-control"
               placeholder="Enter maximum age"

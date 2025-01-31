@@ -12,6 +12,7 @@ const path = require("path");
 const passport = require("passport");
 const session = require("express-session");
 const multer = require('multer');  
+const nodemailer = require('nodemailer'); 
 const { pool } = require("./dbConfig");
 const { error } = require("console");
 
@@ -91,7 +92,8 @@ app.get('/images/:id', async (req, res) => {
 });
 
 
-// Routes
+//--------- Routes
+
 app.get("/", async (req, res) => {
   try {
     const user = req.user ? req.user : "guest";
@@ -176,6 +178,12 @@ app.get("/register", (req, res) => {
     res.render("register", { user });
   }
 });
+app.get("/contact", (req, res) => {
+  const user = req.user ? req.user : "guest";
+
+    res.render("contact", { user });
+ 
+});
 
 app.get("/posts", async(req, res) => {
   const user = req.user ? req.user : "guest";
@@ -208,7 +216,9 @@ app.get("/post/:id", async (req, res) => {
 
 
 
-////post request
+////---------------- post requests 
+
+//register request
 app.post("/register", async (req, res) => {
   let { username, email, password, confpassword, isAuthor } = req.body;
   let errors = [];
@@ -351,9 +361,33 @@ app.post('/addpage', upload.single('image'), async (req, res) => {
     res.status(500).json({ error: 'Failed to create entry' });
   }
 });
+// Handle form submissions  
+app.post('/send', (req, res) => {  
+  const { email_contact, subject_contact, msg_contact } = req.body; 
 
+  const transporter = nodemailer.createTransport({  
+    service: 'Yahoo', // or another email service  
+    auth: {  
+        user: 'kate_sarant@yahoo.gr', // Your email  
+        pass: 'hfmacpihvalltfqb', // Your email password  
+    },  
+}); 
+const mailOptions = {  
+  from: email_contact, // Email of the user  
+  to: 'kate_sarant@yahoo.gr', // The recipient's email address  
+  subject: subject_contact, // The subject of the email
+  text: `Message from ${email_contact}: ${msg_contact}`, // Include the user's email in the message  
+}; 
 
+// Send the email  
+transporter.sendMail(mailOptions, (error, info) => {  
+  if (error) {  
+      return res.status(500).send('Error sending email: ' + error.message);  
+  }  
+  res.redirect('/contact?success=true');
+});  
 
+});
 
 
 
