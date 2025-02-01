@@ -141,7 +141,7 @@ document.getElementById("searchBtn").addEventListener("click", () => {
   if (days) query += `days=${days}&`;
 
   // Redirect to filtered results
-  window.location.href = "/" + query.slice(0, -1); // Remove trailing '&'
+  window.location.href = "/posts" + query.slice(0, -1); // Remove trailing '&'
 });
 
 </script>
