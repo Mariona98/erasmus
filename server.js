@@ -14,7 +14,7 @@ const multer = require("multer");
 const nodemailer = require("nodemailer"); // Ensure nodemailer is installed
 const { pool } = require("./dbConfig");
 const { error } = require("console");
-PORT=4000
+PORT = process.env.PORT || 4000;
 const app = express();
 
 // Setup multer for file uploads (images)
@@ -123,10 +123,8 @@ app.get("/login", (req, res) => {
   }
 });
 
-// 404 page
-app.get("/404", (req, res) => {
-  res.render("404");
-});
+
+ 
 
 // Registration page
 app.get("/register", (req, res) => {
@@ -338,7 +336,17 @@ app.post("/send", (req, res) => {
     res.redirect("/contact?success=true");
   });
 });
+// // 404 page
+app.use((req, res, next) => {  
+  console.log(`Received request for: ${req.path}`);  
+  next(); // Move to the next middleware or route  
+});  
 
+// Final error handling middleware for undefined routes (404)  
+app.use((req, res) => {  
+  console.log(`Route not found: ${req.path}`);  // Log for debugging purposes  
+  res.status(404).render('404');                // Render the '404' view  
+});
 // -------------------- START SERVER --------------------
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
