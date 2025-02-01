@@ -118,6 +118,9 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_DATABASE=postgres
 SESSION_SECRET=secret
+GMAIL_USER=erasmusapp25@gmail.com
+GMAIL_PASSWORD=alyy pzko zdsu vaop
+
 ```
 ### tip!
 I already have a dbConfig.js so no need to make it. 

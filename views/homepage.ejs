@@ -1,141 +1,105 @@
 <!-- Include header dynamically -->
-
 <%- include('partials/header.ejs') %>
 
-<!-- Filter/Search Section -->
-<div id="filterswrapper" class="search-filter dropdown m-auto">
-  <label for="country">Country:</label>
-  <select id="country" class="form-select" aria-label="Country select">
-    <option value="" selected disabled>Select a country</option>
-    <option value="Austria">Austria</option>
-    <option value="Belgium">Belgium</option>
-    <option value="Bulgaria">Bulgaria</option>
-    <option value="Croatia">Croatia</option>
-    <option value="Cyprus">Cyprus</option>
-    <option value="Czech Republic">Czech Republic</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Estonia">Estonia</option>
-    <option value="Finland">Finland</option>
-    <option value="France">France</option>
-    <option value="Germany">Germany</option>
-    <option value="Greece">Greece</option>
-    <option value="Hungary">Hungary</option>
-    <option value="Ireland">Ireland</option>
-    <option value="Italy">Italy</option>
-    <option value="Latvia">Latvia</option>
-    <option value="Lithuania">Lithuania</option>
-    <option value="Luxembourg">Luxembourg</option>
-    <option value="Malta">Malta</option>
-    <option value="Netherlands">Netherlands</option>
-    <option value="Poland">Poland</option>
-    <option value="Portugal">Portugal</option>
-    <option value="Romania">Romania</option>
-    <option value="Slovakia">Slovakia</option>
-    <option value="Slovenia">Slovenia</option>
-    <option value="Spain">Spain</option>
-    <option value="Sweden">Sweden</option>
-    <option value="Other">Other</option>
-  </select>
+<div class="background"></div>
 
-  <label for="startDate">Start Date:</label>
-  <input type="date" class="form-control mt-2" id="startDate" />
-
-  <label for="endDate">End Date:</label>
-  <input type="date" class="form-control mt-2" id="endDate" />
-
-  <button id="searchBtn" type="submit" class="btn btn-primary">Search</button>
-</div>
-<div class="listingwrapper">
-  <div class="background"></div>
-  <!-- Listing Section -->
-  <div class="listing">
-    <div class="container">
+<!-- Listing Section -->
+<div class="listing">
+  <div class="container">
+    <% if (!entries[0]) { %>
+      <p>No entries yet!</p>
+    <% } else { %>
+      <!-- Latest Posts (First Two) -->
+      <center><h3 class="p-4 mt-6">Latest posts</h3></center>
       <div class="row">
-        <% if(!entries[0]){ %>
-        <p>No entries yet!</p>
-        <% }else{ %>
-        <center><h3 class="p-4 mt-6">Latests posts</h3></center>
-        <div class="col-sm">
-          <a href="/post/<%= entries[0].id %>" class="card-link" style="text-decoration: none; color: inherit;">
+        <!-- First Post -->
+        <div class="col-md-6 col-lg-6 mt-6">
           <div class="card">
-            <div class="card-image">
-              <img src="/images/<%= entries[0].id %>" alt="Article Image" />
-            </div>
-            <div class="card-content">
-              <h5 class="card-heading"><%= entries[0].title %></h5>
-
-              <p class="card-subheading truncate">
-                <%= entries[0].subheading %> 
-              </p>
-              <p class="card-tags">#cart</p>
-              <p style="margin:0px;float:right;font-size: 14px;">posted at <%= new Date(entries[0].created_at).toString().substring(0, 16) %></p>
-
-            </div>
+            <a href="/post/<%= entries[0].id %>" class="card-link" style="text-decoration: none; color: inherit;">
+              <div class="card-image">
+                <img src="/images/<%= entries[0].id %>" alt="Article Image" />
+              </div>
+              <div class="card-content">
+                <p><strong>Country:</strong> <%= entries[0].country %></p>
+                <p>
+                  <strong>Dates:</strong>
+                  <%= new Date(entries[0].entry_date).toLocaleDateString('en-GB') %> to 
+                  <%= new Date(entries[0].end_date).toLocaleDateString('en-GB') %>
+                </p>
+                <p>
+                  <strong>Ages:</strong>
+                  <%= entries[0].age_limit_down || "N/A" %> - <%= entries[0].age_limit_up || "N/A" %>
+                </p>
+                <p style="font-size: 14px;"><strong>Posted at:</strong> <%= new Date(entries[0].created_at).toString().substring(0, 16) %></p>
+              </div>
+            </a>
           </div>
-        </a>
         </div>
-
         
-        <% } %> <% if(entries[1]){ %>
-
-        <div class="col-sm">
-          <a href="/post/<%= entries[0].id %>" class="card-link" style="text-decoration: none; color: inherit;">
-          <div class="card">
-            <div class="card-image">
-              <!-- Remove "/public" in the src attribute -->
-              <img src="/images/<%= entries[1].id %>" alt="Article Image" />
-            </div>
-            <div class="card-content">
-              <h5 class="card-heading"><%= entries[1].title %></h5>
-
-              <p class="card-subheading truncate">
-                <%= entries[1].subheading %> 
-              </p>
-              <p class="card-tags">#cart</p>
-              <p style="margin:0px;float:right;font-size: 14px;">posted at <%= new Date(entries[1].created_at).toString().substring(0, 16) %></p>
-
-            </div>
-          </div>
-          </a>
-        </div>
-        <% };%>
-      </div>
-      <% if(entries.length > 2){ %>
-      <div class="row" style="margin: 60px 0px">
-        <center><h3 class="p-4">Older posts</h3></center>
-        <% entries.forEach((entry, index) => { %> <% if(index > 1) { %>
-        <!-- Skip the first two entries (index 0 and 1) -->
-        <div class="col-md-4 col-lg-4 mt-6">
-          <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
-          <div class="card">
-            <div class="card-image">
-              <img src="/images/<%= entry.id %>" alt="Article Image" />
-            </div>
-            <div class="card-content">
-              <h5 class="card-heading"><%= entry.title %></h5>
-
-              <p class="card-subheading truncatelatest">
-                <%= entry.subheading %>  
-              </p>
-              
-              <p class="card-tags">#cart</p>
-              <p style="margin:0px;float:right;font-size: 12px;">posted at <%= new Date(entry.created_at).toString().substring(0, 16) %></p>
+        <!-- Second Post (if exists) -->
+        <% if (entries[1]) { %>
+          <div class="col-md-6 col-lg-6 mt-6">
+            <div class="card">
+              <a href="/post/<%= entries[1].id %>" class="card-link" style="text-decoration: none; color: inherit;">
+                <div class="card-image">
+                  <img src="/images/<%= entries[1].id %>" alt="Article Image" />
+                </div>
+                <div class="card-content">
+                  <p><strong>Country:</strong> <%= entries[1].country %></p>
+                  <p>
+                    <strong>Dates:</strong>
+                    <%= new Date(entries[1].entry_date).toLocaleDateString('en-GB') %> to 
+                    <%= new Date(entries[1].end_date).toLocaleDateString('en-GB') %>
+                  </p>
+                  <p>
+                    <strong>Ages:</strong>
+                    <%= entries[1].age_limit_down || "N/A" %> - <%= entries[1].age_limit_up || "N/A" %>
+                  </p>
+                  <p style="font-size: 14px;"><strong>Posted at:</strong> <%= new Date(entries[1].created_at).toString().substring(0, 16) %></p>
+                </div>
+              </a>
             </div>
           </div>
-          </a>
-        </div>
-        <% }; %>
-        <!-- End of if statement -->
-        <% }); %>
-        <!-- End of forEach loop -->
-
-        <div class="d-flex justify-content-end">
-          <a class="text-white btn btn-primary" href="/posts">More</a>
-        </div>
-      </div>
-      <% }; %>
+        <% } %>
+      </div> <!-- End row for Latest Posts -->
+  
+      <!-- Older Posts (Index > 1) -->
+      <% if (entries.length > 2) { %>
+        <div class="row" style="margin: 60px 0px">
+          <center><h3 class="p-4">Older posts</h3></center>
+          <% entries.forEach((entry, index) => { 
+               if (index > 1) { %>
+            <div class="col-md-4 col-lg-4 mt-6">
+              <div class="card">
+                <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
+                  <div class="card-image">
+                    <img src="/images/<%= entry.id %>" alt="Article Image" />
+                  </div>
+                  <div class="card-content">
+                    <p><strong>Country:</strong> <%= entry.country %></p>
+                    <p>
+                      <strong>Dates:</strong>
+                      <%= new Date(entry.entry_date).toLocaleDateString('en-GB') %> to 
+                      <%= new Date(entry.end_date).toLocaleDateString('en-GB') %>
+                    </p>
+                    <p>
+                      <strong>Ages:</strong> 
+                      <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
+                    </p>
+                    <p style="font-size: 12px;"><strong>Posted at:</strong> <%= new Date(entry.created_at).toString().substring(0, 16) %></p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          <% } }); %>
+        </div> <!-- End row for Older Posts -->
+      <% } %>
+    <% } %>
+    <!-- More button -->
+    <div class="d-flex justify-content-end">
+      <a class="text-white btn btn-primary" href="/posts">More</a>
     </div>
-  </div>
-</div>
-<!-- Repeat more cards as needed -->
+  </div> <!-- End container -->
+</div> <!-- End listing -->
+
 <%- include('partials/footer.ejs') %>
