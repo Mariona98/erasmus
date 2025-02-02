@@ -8,21 +8,22 @@
   <body>
     <!-- Include header dynamically -->
     <%- include('partials/header.ejs') %>
-    <center>
+    <!-- <center>
       <p id="message" class="border-danger text-danger p-3 text-center"></p>
-    </center>
+    </center> -->
     <div class="d-flex justify-content-center">
       <section class="create-section my-4">
         <h1 class="m-auto my-4">Create a New Entry</h1>
         <form
+        class="d-lg-flex d-block"
           id="createForm"
           method="POST"
           action="/addpage"
           enctype="multipart/form-data"
         >
-          <br />
-          <div>
-            <label class="form-control" for="title">Title</label>
+         
+          <div class="w-lg-50 w-100">
+            <label class="col-sm col-form-label" for="title">Title</label>
             <input
               class="form-control"
               type="text"
@@ -31,7 +32,7 @@
               required
             />
 
-            <label class="form-control" for="subheading">Subheading</label>
+            <label class="col-sm col-form-label" for="subheading">Subheading</label>
             <input
               class="form-control"
               type="text"
@@ -39,7 +40,7 @@
               name="subheading"
             />
 
-            <label class="form-control" for="description">Add Description</label>
+            <label class="col-sm col-form-label" for="description">Add Description</label>
             <textarea
               class="form-control"
               id="description"
@@ -47,7 +48,7 @@
               required
             ></textarea>
 
-            <label class="form-control" for="link">Link</label>
+            <label class="col-sm col-form-label" for="link">Link</label>
             <input
               class="form-control"
               type="url"
@@ -58,7 +59,7 @@
             />
 
             <!-- Entry and End Dates -->
-            <label for="entryDate">Entry Date</label>
+            <label class="col-sm col-form-label" for="entryDate">Entry Date</label>
             <input
               id="entryDate"
               class="form-control"
@@ -67,7 +68,7 @@
               required
               onchange="calculateDays()"
             />
-            <label for="endDate">End Date</label>
+            <label class="col-sm col-form-label" for="endDate">End Date</label>
             <input
               id="endDate"
               class="form-control"
@@ -78,7 +79,7 @@
             />
 
             <!-- Days Calculated -->
-            <label for="days">Number of Days:</label>
+            <label class="col-sm col-form-label" for="days">Number of Days:</label>
             <input
               id="days"
               class="form-control"
@@ -88,12 +89,12 @@
               placeholder="Calculated automatically"
             />
           </div>
-
+          <div class="w-lg-50 w-100">
           <!-- Country Dropdown -->
-          <label class="form-control" for="country">Country</label>
+          <label class="col-sm col-form-label" for="country">Country</label>
           <select
             id="country"
-            class="form-control"
+            class="form-control mt-2"
             name="country"
             onchange="toggleOtherCountryInput(this)"
           >
@@ -139,8 +140,8 @@
           />
 
           <!-- Age Limits -->
-          <div class="mt-4">
-            <label for="ageLimitDown">Minimum Age Limit:</label>
+          <div class="mt-2">
+            <label class="col-sm col-form-label" for="ageLimitDown">Minimum Age Limit:</label>
             <input
               type="number"
               id="ageLimitDown"
@@ -151,7 +152,7 @@
               placeholder="Enter minimum age"
             />
 
-            <label for="ageLimitUp" class="mt-2">Maximum Age Limit:</label>
+            <label class="col-sm col-form-label" for="ageLimitUp" class="mt-2">Maximum Age Limit:</label>
             <input
               type="number"
               id="ageLimitUp"
@@ -171,16 +172,23 @@
               class="preview-image m-auto"
             />
             <input
-              class="m-auto my-4"
+              class="m-auto my-4 form-control"
               id="image"
               accept="image/*"
               type="file"
               name="image"
               multiple
             />
+            <!-- <div class="mb-3">
+              <label for="formFile" class="form-label">Default file input example</label>
+              <input class="form-control" type="file" id="formFile">
+            </div> -->
+           
           </div>
-
           <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+         
         </form>
       </section>
     </div>

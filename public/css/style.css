@@ -2,7 +2,7 @@
 :root {
   --boxshadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  --formbg: #ffffffcc;
+  --formbg: #eeebeb85;
 }
 /* Reset or basic setup */
 * {
@@ -10,12 +10,14 @@
   padding: 0;
   box-sizing: border-box;
   letter-spacing: 0.8px;
+  font-family: "Manrope", Arial, sans-serif;
 }
 
 html,
 body {
   height: 100%;
   margin: 0;
+  
 }
 footer {
   box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 3px 0px,
@@ -51,6 +53,20 @@ section {
   word-break: break-word;
   padding: 10px;
   text-align: justify;
+}
+#mission{
+  padding: 23px;
+  margin: 45px 0;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  top: 61px;
+  background: #fff;
+  border-radius: 10px;
+  line-height: 2;
+  color: #6f7178;
+ 
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 .messages {
   list-style: none;
@@ -178,6 +194,8 @@ center {
   border: 1px solid #ccc;
   border-radius: 8px !important;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  max-width: 480px;
+  margin: 0 auto!important;
 }
 .card-image {
   max-width: 550px;
@@ -225,10 +243,10 @@ center {
   margin: 0 auto;
   width: 100%;
 
-  background-image: url("../images/moonsky.jpg");
+  /* background-image: url("../images/moonsky.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: right center;
+  background-position: right center; */
 }
 .background {
   margin: 0 auto;
@@ -250,17 +268,17 @@ center {
   background-color: var(--formbg);
   padding: 20px;
   border-radius: 8px;
+  color: rgb(28 101 167);
 }
 .create-section form {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
+   max-width: 500px;
   margin: 0 auto;
   box-shadow: var(--boxshadow);
+  gap: 1rem;
 }
-.create-section form label {
+/* .create-section form label {
   margin-top: 1rem;
-}
+} */
 .create-section form input,
 .create-section form textarea {
   padding: 0.5rem;
@@ -275,6 +293,8 @@ center {
   object-fit: cover;
   display: block;
   margin-bottom: 1rem;
+  border: solid 3px rgb(28 101 167);;
+  border-radius: 8px;
 }
 
 /* Login Section */
@@ -328,9 +348,9 @@ center {
   background-color: #57afc7;
 }
 
-/* .listingwrapper{
-    height: 100vh;
-  } */
+.listingwrapper{
+   margin-bottom: 100px;
+  }
 @media only screen and (max-width: 800px) {
   #filterswrapper {
     display: block;
