@@ -4,9 +4,10 @@
 <div class="background"></div>
 <div id="mission">
 <h2>Ours mission </h2><br>
-<p>
+<p class="scale-in-center">
   The Erasmus programs offer an opportunity to experience different cultures in Europe and collaborate on specific topics.
-  <strong> The aim of this website is to facilitate the search for a program. </strong>The idea is evolving, and we are open to suggestions and ideas on the "Contact Us" page.</p>
+  <strong> The aim of this website is to facilitate the search for a program. </strong>The idea is evolving, and we are open to suggestions and ideas on the 
+  <a href="/contact">"Contact Us"</a>  page.</p>
 </div>
   <!-- Listing Section -->
 <div class="listing">
@@ -19,7 +20,7 @@
       <div class="row">
         <!-- First Post -->
         <div class="col-md-6 col-lg-6 mt-6">
-          <div class="card">
+          <div class="card scale-in-center">
             <a href="/post/<%= entries[0].id %>" class="card-link" style="text-decoration: none; color: inherit;">
               <div class="card-image">
                 <img src="/images/<%= entries[0].id %>" alt="Article Image" />
@@ -44,7 +45,7 @@
         <!-- Second Post (if exists) -->
         <% if (entries[1]) { %>
           <div class="col-md-6 col-lg-6 mt-6">
-            <div class="card">
+            <div class="card scale-in-center">
               <a href="/post/<%= entries[1].id %>" class="card-link" style="text-decoration: none; color: inherit;">
                 <div class="card-image">
                   <img src="/images/<%= entries[1].id %>" alt="Article Image" />
@@ -75,7 +76,7 @@
           <% entries.forEach((entry, index) => { 
                if (index > 1) { %>
             <div class="col-md-4 col-lg-4 mt-6">
-              <div class="card">
+              <div class="card scale-in-center">
                 <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
                   <div class="card-image">
                     <img src="/images/<%= entry.id %>" alt="Article Image" />
