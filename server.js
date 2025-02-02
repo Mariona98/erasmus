@@ -14,7 +14,8 @@ const multer = require("multer");
 const nodemailer = require("nodemailer"); // Ensure nodemailer is installed
 const { pool } = require("./dbConfig");
 const { error } = require("console");
-PORT = process.env.PORT || 4000;
+// PORT = process.env.PORT || 4000;
+PORT = 5000;
 const app = express();
 
 // Setup multer for file uploads (images)
