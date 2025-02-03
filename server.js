@@ -14,6 +14,7 @@ const multer = require("multer");
 const nodemailer = require("nodemailer"); // Ensure nodemailer is installed
 const { pool } = require("./dbConfig");
 const { error } = require("console");
+const router = express.Router();
 // PORT = process.env.PORT || 4000;
 PORT = 5000;
 const app = express();
@@ -65,7 +66,7 @@ app.use((req, res, next) => {
 app.get('/images/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const query = "SELECT image_data FROM entries WHERE id = $1;";
+    const query = "SELECT image_data FROM d189015pit_.entries WHERE id = ?;";
     const result = await pool.query(query, [id]);
 
     if (result.rows.length > 0) {
@@ -81,11 +82,12 @@ app.get('/images/:id', async (req, res) => {
   }
 });
 
+
 // Homepage route (shows all entries, no filters)
-app.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const user = req.user ? req.user : "guest";
-    const result = await pool.query("SELECT * FROM entries ORDER BY entry_date DESC");
+    const result = await pool.query("SELECT * FROM d189015pit_.entries ORDER BY entry_date DESC");
     res.render("homepage", { user, entries: result.rows });
   } catch (error) {
     console.error(error);
@@ -125,8 +127,6 @@ app.get("/login", (req, res) => {
 });
 
 
- 
-
 // Registration page
 app.get("/register", (req, res) => {
   const user = req.user ? req.user : "guest";
@@ -142,7 +142,7 @@ app.get("/posts", async (req, res) => {
   try {
     const user = req.user ? req.user : "guest";
     const { country, month, days } = req.query;
-    let query = "SELECT * FROM entries WHERE 1=1";
+    let query = "SELECT * FROM d189015pit_.entries WHERE 1=1";
     const params = [];
     if (country) {
       params.push(country);
@@ -170,7 +170,7 @@ app.get("/post/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const user = req.user ? req.user : "guest";
-    const result = await pool.query("SELECT * FROM entries WHERE id = $1", [id]);
+    const result = await pool.query("SELECT * FROM d189015pit_.entries WHERE id = $1", [id]);
     if (result.rows.length === 0) {
       return res.status(404).send("Post not found");
     }
@@ -184,126 +184,142 @@ app.get("/post/:id", async (req, res) => {
 
 // -------------------- POST REQUESTS --------------------
 
-// Registration request
-app.post("/register", async (req, res) => {
-  let { username, email, password, confpassword, isAuthor } = req.body;
-  let errors = [];
-  if (!username || !email || !password || !confpassword) {
-    errors.push({ message: "Please enter all fields" });
-  }
-  if (password.length < 6) {
-    errors.push({ message: "Password must be at least 6 characters." });
-  }
-  if (password !== confpassword) {
-    errors.push({ message: "Passwords do not match." });
-  }
-  if (errors.length > 0) {
-    res.render("register", { errors, user: "guest" });
-  } else {
-    let hashedPassword = await bcrypt.hash(password, 10);
-    try {
-      const results = await pool.query("SELECT * FROM public.users WHERE email = $1", [email]);
-      if (results.rows.length > 0) {
-        errors.push({ message: "Email already registered." });
-        res.render("register", { errors, user: "guest" });
-      } else {
-        const newUser = await pool.query(
-          `INSERT INTO users (username, email, password, admin)
-           VALUES ($1, $2, $3, $4)
-           RETURNING id, username, email`,
-          [username, email, hashedPassword, isAuthor]
-        );
-        req.login(newUser.rows[0], (err) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).send("Error logging in after registration");
-          }
-          req.flash("success_msg", "You are now registered and logged in.");
-          res.redirect("/");
-        });
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Internal Server Error");
-    }
-  }
-});
 
-// Login request
-app.post("/login", (req, res, next) => {
-  console.log("Incoming request body:", req.body);
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      console.error("Login failed: ", err);
-      return next(err);
-    }
-    if (!user) {
-      console.log("User not found with the provided email.");
-      req.flash("error_msg", info.message || "Invalid email or password.");
-      return res.redirect("/login");
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        console.error("Login failed during req.login: ", err);
-        return next(err);
-      }
-      console.log("User authenticated successfully:", user.email);
-      return res.redirect("/addpage");
-    });
-  })(req, res, next);
-});
+// Registration request  
+router.post("/register", async (req, res) => {  
+  let { username, email, password, confpassword } = req.body;  
+  let errors = [];  
 
-// New post entry
-app.post('/addpage', upload.single('image'), async (req, res) => {
-  try {
-    const {
-      title,
-      subheading,
-      description,
-      entryDate,
-      endDate,
-      country,
-      otherCountry,
-      ageLimitDown,
-      ageLimitUp,
-      link
-    } = req.body;
-    const user_id = req.user.id;
-    const imageName = req.file.originalname;
-    const imageData = req.file.buffer;
-    const days = Math.ceil((new Date(endDate) - new Date(entryDate)) / (1000 * 60 * 60 * 24));
-    const finalCountry = country === 'Other' ? otherCountry : country;
-    const query = `
-      INSERT INTO entries (
-        title, subheading, description, entry_date, end_date, days,
-        country, age_limit_down, age_limit_up, image_name, image_data, link, user_id
-      )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-      RETURNING *;
-    `;
-    const values = [
-      title,
-      subheading,
-      description,
-      entryDate,
-      endDate,
-      days,
-      finalCountry,
-      ageLimitDown || null,
-      ageLimitUp || null,
-      imageName,
-      imageData,
-      link || null,
-      user_id
-    ];
-    const result = await pool.query(query, values);
-    console.log(result);
-    res.status(201).json({ message: 'Entry created successfully', entry: result.rows[0] });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to create entry' });
-  }
-});
+  if (!username || !email || !password || !confpassword) {  
+    errors.push({ message: "Please enter all fields" });  
+  }  
+  if (password.length < 6) {  
+    errors.push({ message: "Password must be at least 6 characters." });  
+  }  
+  if (password !== confpassword) {  
+    errors.push({ message: "Passwords do not match." });  
+  }  
+
+  if (errors.length > 0) {  
+    return res.render("register", { errors, user: "guest" });  
+  }  
+
+  // Hash the password  
+  let hashedPassword = await bcrypt.hash(password, 10);  
+  
+  try {  
+    // Check if the email is already registered  
+    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);  
+    
+    if (rows.length > 0) {  
+      errors.push({ message: "Email already registered." });  
+      return res.render("register", { errors, user: "guest" });  
+    }  
+
+    // Insert new user  
+    const [newUser] = await pool.query(  
+      "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",  
+      [username, email, hashedPassword, isAuthor]  
+    );  
+
+    // Log the new user in after registration  
+    req.login(newUser.insertId, (err) => {  
+      if (err) {  
+        console.error(err);  
+        return res.status(500).send("Error logging in after registration");  
+      }  
+      req.flash("success_msg", "You are now registered and logged in.");  
+      return res.redirect("/");  
+    });  
+  } catch (err) {  
+    console.error(err);  
+    return res.status(500).send("Internal Server Error");  
+  }  
+});  
+
+// Login request  
+router.post("/login", (req, res, next) => {  
+  console.log("Incoming request body:", req.body);  
+  passport.authenticate("local", (err, user, info) => {  
+    if (err) {  
+      console.error("Login failed: ", err);  
+      return next(err);  
+    }  
+    if (!user) {  
+      console.log("User not found with the provided email.");  
+      req.flash("error_msg", info.message || "Invalid email or password.");  
+      return res.redirect("/login");  
+    }  
+    req.logIn(user, (err) => {  
+      if (err) {  
+        console.error("Login failed during req.login: ", err);  
+        return next(err);  
+      }  
+      console.log("User authenticated successfully:", user.email);  
+      return res.redirect("/addpage");  
+    });  
+  })(req, res, next);  
+});  
+
+// New post entry  
+router.post('/addpage', upload.single('image'), async (req, res) => {  
+  try {  
+    const {  
+      title,  
+      subheading,  
+      description,  
+      entryDate,  
+      endDate,  
+      country,  
+      otherCountry,  
+      ageLimitDown,  
+      ageLimitUp,  
+      link  
+    } = req.body;  
+
+    const user_id = req.user.id; // Assuming the user is logged in  
+    const imageName = req.file.originalname;  
+    const imageData = req.file.buffer;  
+    
+    const days = Math.ceil((new Date(endDate) - new Date(entryDate)) / (1000 * 60 * 60 * 24));  
+    const finalCountry = country === 'Other' ? otherCountry : country;  
+
+    const query = `  
+      INSERT INTO d189015pit_.entries (  
+        title, subheading, description, entry_date, end_date, days,  
+        country, age_limit_down, age_limit_up, image_name, image_data, link, user_id  
+      )  
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  
+    `;  
+
+    const values = [  
+      title,  
+      subheading,  
+      description,  
+      entryDate,  
+      endDate,  
+      days,  
+      finalCountry,  
+      ageLimitDown || null,  
+      ageLimitUp || null,  
+      imageName,  
+      imageData,  
+      link || null,  
+      user_id  
+    ];  
+
+    const [result] = await pool.query(query, values);  
+    
+    console.log(result);  
+    res.status(201).json({ message: 'Entry created successfully', entry: { id: result.insertId, ...values } });  
+  } catch (error) {  
+    console.error(error);  
+    res.status(500).json({ error: 'Failed to create entry' });  
+  }  
+});  
+
+// // Export router if this is a separate module  
+module.exports = router;  
 
 // -------------------- CONTACT ROUTES --------------------
 
