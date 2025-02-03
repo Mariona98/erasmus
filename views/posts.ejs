@@ -4,65 +4,68 @@
 
 <!-- Filter/Search Section -->
 <div id="filterswrapper" class="search-filter dropdown m-auto">
-  <label for="country">Country:</label>
-  <select id="country" class="form-select" aria-label="Country select">
-    <option value="" selected disabled>Select a country</option>
-    <option value="Austria">Austria</option>
-    <option value="Belgium">Belgium</option>
-    <option value="Bulgaria">Bulgaria</option>
-    <option value="Croatia">Croatia</option>
-    <option value="Cyprus">Cyprus</option>
-    <option value="Czech Republic">Czech Republic</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Estonia">Estonia</option>
-    <option value="Finland">Finland</option>
-    <option value="France">France</option>
-    <option value="Germany">Germany</option>
-    <option value="Greece">Greece</option>
-    <option value="Hungary">Hungary</option>
-    <option value="Ireland">Ireland</option>
-    <option value="Italy">Italy</option>
-    <option value="Latvia">Latvia</option>
-    <option value="Lithuania">Lithuania</option>
-    <option value="Luxembourg">Luxembourg</option>
-    <option value="Malta">Malta</option>
-    <option value="Netherlands">Netherlands</option>
-    <option value="Poland">Poland</option>
-    <option value="Portugal">Portugal</option>
-    <option value="Romania">Romania</option>
-    <option value="Slovakia">Slovakia</option>
-    <option value="Slovenia">Slovenia</option>
-    <option value="Spain">Spain</option>
-    <option value="Sweden">Sweden</option>
-    <option value="Other">Other</option>
-  </select>
 
-  <label for="month" class="mt-3">Month:</label>
-  <select id="month" class="form-select mt-2">
-    <option value="" selected disabled>Select a month</option>
-    <option value="01">January</option>
-    <option value="02">February</option>
-    <option value="03">March</option>
-    <option value="04">April</option>
-    <option value="05">May</option>
-    <option value="06">June</option>
-    <option value="07">July</option>
-    <option value="08">August</option>
-    <option value="09">September</option>
-    <option value="10">October</option>
-    <option value="11">November</option>
-    <option value="12">December</option>
-  </select>
+  <label for="country">Χώρα:</label>  
+  <select id="country" class="form-select" aria-label="Επιλογή χώρας">  
+      <option value="" selected disabled>Επιλέξτε χώρα</option>  
+      <option value="Austria">Αυστρία</option>  
+      <option value="Belgium">Βέλγιο</option>  
+      <option value="Bulgaria">Βουλγαρία</option>  
+      <option value="Croatia">Κροατία</option>  
+      <option value="Cyprus">Κύπρος</option>  
+      <option value="Czech Republic">Τσεχία</option>  
+      <option value="Denmark">Δανία</option>  
+      <option value="Estonia">Εσθονία</option>  
+      <option value="Finland">Φινλανδία</option>  
+      <option value="France">Γαλλία</option>  
+      <option value="Germany">Γερμανία</option>  
+      <option value="Greece">Ελλάδα</option>  
+      <option value="Hungary">Ουγγαρία</option>  
+      <option value="Ireland">Ιρλανδία</option>  
+      <option value="Italy">Ιταλία</option>  
+      <option value="Latvia">Λετονία</option>  
+      <option value="Lithuania">Λιθουανία</option>  
+      <option value="Luxembourg">Λουξεμβούργο</option>  
+      <option value="Malta">Μάλτα</option>  
+      <option value="Netherlands">Ολλανδία</option>  
+      <option value="Poland">Πολωνία</option>  
+      <option value="Portugal">Πορτογαλία</option>  
+      <option value="Romania">Ρουμανία</option>  
+      <option value="Slovakia">Σλοβακία</option>  
+      <option value="Slovenia">Σλοβενία</option>  
+      <option value="Spain">Ισπανία</option>  
+      <option value="Sweden">Σουηδία</option>  
+      <option value="Other">Άλλη</option>  
+  </select> 
 
-  <label for="days" class="mt-3">Number of Days:</label>
+  <label for="month" class="mt-3">Μήνας:</label>  
+<select id="month" class="form-select mt-2">  
+    <option value="" selected disabled>Επιλέξτε μήνα</option>  
+    <option value="01">Ιανουάριος</option>  
+    <option value="02">Φεβρουάριος</option>  
+    <option value="03">Μάρτιος</option>  
+    <option value="04">Απρίλιος</option>  
+    <option value="05">Μάιος</option>  
+    <option value="06">Ιούνιος</option>  
+    <option value="07">Ιούλιος</option>  
+    <option value="08">Αύγουστος</option>  
+    <option value="09">Σεπτέμβριος</option>  
+    <option value="10">Οκτώβριος</option>  
+    <option value="11">Νοέμβριος</option>  
+    <option value="12">Δεκέμβριος</option>  
+</select>  
+
+
+  <label for="days" class="mt-3">Σύνολο ημερών:</label>
   <select id="days" class="form-select mt-2">
-    <option value="" selected disabled>Select number of days</option>
+    <option value="" selected disabled>Ημέρες ταξιδιού</option>
     <% for (let i = 1; i <= 20; i++) { %>
-      <option value="<%= i %>"><%= i %> day<%= i > 1 ? 's' : '' %></option>
+      
+      <option value="<%= i %>"><%= i %> ημέρ<%= i > 1 ? "ες" : "α" %></option>
     <% } %>
   </select>
 
-  <button id="searchBtn" type="button" class="btn btn-primary mt-3">Search</button>
+  <button id="searchBtn" type="button" class="btn btn-primary mt-3">Αναζήτηση</button>
 </div>
 <hr>
 <div class="listingwrapper">
@@ -73,7 +76,7 @@
     <div class="container">
       <div class="row">
 
-        <center><h3 class="p-4">Posts</h3></center>
+        <center><h3 class="p-4">Ανακοινώσεις Ταξιδιών</h3></center>
         <% entries.forEach((entry, index) => { %> 
           <% 
             // Calculate the number of days for the current entry
@@ -95,22 +98,22 @@
                 
                     <!-- Country -->
                     <p class="card-subheading" style="margin: 0;">
-                      <strong>Country:</strong> <%= entry.country %>
+                      <strong>Χώρα:</strong> <%= entry.country %>
                     </p>
                 
                     <!-- Age limits -->
                     <p class="card-subheading" style="margin: 0;">
-                      <strong>Ages:</strong> <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
+                      <strong>Ηλικίες:</strong> <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
                     </p>
                 
                     <!-- Dates -->
                     <p class="card-subheading" style="margin: 0;">
-                      <strong>Dates:</strong>
+                      <strong>Ημέρες:</strong>
                       <%= new Date(entry.entry_date).toLocaleDateString('en-GB') %> to 
                       <%= new Date(entry.end_date).toLocaleDateString('en-GB') %>
                       <!-- Calculate and display the days -->
                       <span style="white-space: nowrap; margin-left: 10px; font-size: 0.8em; opacity: 0.6;">
-                        (<%= totalDays %> days)
+                        (<%= totalDays %> <% d = (totalDays>1) ?"ημερών":"ημέρα"%><%= d %>)
                       </span>
                     </p>
                   </div>

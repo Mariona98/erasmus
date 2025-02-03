@@ -23,7 +23,7 @@
         >
          
           <div class="w-lg-50 w-100">
-            <label class="col-sm col-form-label" for="title">Title</label>
+            <label class="col-sm col-form-label" for="title">Τίτλος</label>
             <input
               class="form-control"
               type="text"
@@ -32,7 +32,7 @@
               required
             />
 
-            <label class="col-sm col-form-label" for="subheading">Subheading</label>
+            <label class="col-sm col-form-label" for="subheading">Υπότιτλος</label>
             <input
               class="form-control"
               type="text"
@@ -40,7 +40,7 @@
               name="subheading"
             />
 
-            <label class="col-sm col-form-label" for="description">Add Description</label>
+            <label class="col-sm col-form-label" for="description">Περιγραφή</label>
             <textarea
               class="form-control"
               id="description"
@@ -48,18 +48,18 @@
               required
             ></textarea>
 
-            <label class="col-sm col-form-label" for="link">Link</label>
+            <label class="col-sm col-form-label" for="link">Σύνδεσμος</label>
             <input
               class="form-control"
               type="url"
               id="link"
               pattern="^(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z]{2,6}(\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))?$" 
               name="link"
-              placeholder="Enter a URL"
+              placeholder="https://example.com"
             />
 
             <!-- Entry and End Dates -->
-            <label class="col-sm col-form-label" for="entryDate">Entry Date</label>
+            <label class="col-sm col-form-label" for="entryDate">Ημέρα έναρξη</label>
             <input
               id="entryDate"
               class="form-control"
@@ -68,7 +68,7 @@
               required
               onchange="calculateDays()"
             />
-            <label class="col-sm col-form-label" for="endDate">End Date</label>
+            <label class="col-sm col-form-label" for="endDate">Ημέρα λήξης</label>
             <input
               id="endDate"
               class="form-control"
@@ -79,7 +79,7 @@
             />
 
             <!-- Days Calculated -->
-            <label class="col-sm col-form-label" for="days">Number of Days:</label>
+            <label class="col-sm col-form-label" for="days">Σύνολο ημερών:</label>
             <input
               id="days"
               class="form-control"
@@ -91,42 +91,42 @@
           </div>
           <div class="w-lg-50 w-100">
           <!-- Country Dropdown -->
-          <label class="col-sm col-form-label" for="country">Country</label>
+          <label class="col-sm col-form-label" for="country">Χώρα</label>
           <select
             id="country"
             class="form-control mt-2"
             name="country"
             onchange="toggleOtherCountryInput(this)"
           >
-            <option value="" selected disabled>Select a country</option>
-            <option value="Austria">Austria</option>
-            <option value="Belgium">Belgium</option>
-            <option value="Bulgaria">Bulgaria</option>
-            <option value="Croatia">Croatia</option>
-            <option value="Cyprus">Cyprus</option>
-            <option value="Czech Republic">Czech Republic</option>
-            <option value="Denmark">Denmark</option>
-            <option value="Estonia">Estonia</option>
-            <option value="Finland">Finland</option>
-            <option value="France">France</option>
-            <option value="Germany">Germany</option>
-            <option value="Greece">Greece</option>
-            <option value="Hungary">Hungary</option>
-            <option value="Ireland">Ireland</option>
-            <option value="Italy">Italy</option>
-            <option value="Latvia">Latvia</option>
-            <option value="Lithuania">Lithuania</option>
-            <option value="Luxembourg">Luxembourg</option>
-            <option value="Malta">Malta</option>
-            <option value="Netherlands">Netherlands</option>
-            <option value="Poland">Poland</option>
-            <option value="Portugal">Portugal</option>
-            <option value="Romania">Romania</option>
-            <option value="Slovakia">Slovakia</option>
-            <option value="Slovenia">Slovenia</option>
-            <option value="Spain">Spain</option>
-            <option value="Sweden">Sweden</option>
-            <option value="Other">Other</option>
+          <option value="" selected disabled>Επιλέξτε χώρα</option>  
+          <option value="Αυστρία">Αυστρία</option>  
+          <option value="Βέλγιο">Βέλγιο</option>  
+          <option value="Βουλγαρία">Βουλγαρία</option>  
+          <option value="Κροατία">Κροατία</option>  
+          <option value="Κύπρος">Κύπρος</option>  
+          <option value="Τσεχία">Τσεχία</option>  
+          <option value="Δανία">Δανία</option>  
+          <option value="Εσθονία">Εσθονία</option>  
+          <option value="Φινλανδία">Φινλανδία</option>  
+          <option value="Γαλλία">Γαλλία</option>  
+          <option value="Γερμανία">Γερμανία</option>  
+          <option value="Ελλάδα">Ελλάδα</option>  
+          <option value="Ουγγαρία">Ουγγαρία</option>  
+          <option value="Ιρλανδία">Ιρλανδία</option>  
+          <option value="Ιταλία">Ιταλία</option>  
+          <option value="Λετονία">Λετονία</option>  
+          <option value="Λιθουανία">Λιθουανία</option>  
+          <option value="Λουξεμβούργο">Λουξεμβούργο</option>  
+          <option value="Μάλτα">Μάλτα</option>  
+          <option value="Ολλανδία">Ολλανδία</option>  
+          <option value="Πολωνία">Πολωνία</option>  
+          <option value="Πορτογαλία">Πορτογαλία</option>  
+          <option value="Ρουμανία">Ρουμανία</option>  
+          <option value="Σλοβακία">Σλοβακία</option>  
+          <option value="Σλοβενία">Σλοβενία</option>  
+          <option value="Ισπανία">Ισπανία</option>  
+          <option value="Σουηδία">Σουηδία</option>  
+          <option value="Άλλη">Άλλη</option>
           </select>
 
           <!-- Input for "Other" country -->
@@ -141,7 +141,7 @@
 
           <!-- Age Limits -->
           <div class="mt-2">
-            <label class="col-sm col-form-label" for="ageLimitDown">Minimum Age Limit:</label>
+            <label class="col-sm col-form-label" for="ageLimitDown">Μικρότερα ηλικιακό όριο:</label>
             <input
               type="number"
               id="ageLimitDown"
@@ -152,7 +152,7 @@
               placeholder="Enter minimum age"
             />
 
-            <label class="col-sm col-form-label" for="ageLimitUp" class="mt-2">Maximum Age Limit:</label>
+            <label class="col-sm col-form-label" for="ageLimitUp" class="mt-2">Μέγιστο ηλικιακό όριο:</label>
             <input
               type="number"
               id="ageLimitUp"
@@ -186,7 +186,7 @@
            
           </div>
           <div style="text-align: center;">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Καταχώριση</button>
         </div>
         </div>
 

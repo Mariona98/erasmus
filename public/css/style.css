@@ -10,39 +10,36 @@
  * animation scale-in-center
  * ----------------------------------------
  */
- @-webkit-keyframes scale-in-center {
+@-webkit-keyframes scale-in-center {
   0% {
     -webkit-transform: scale(0);
-            transform: scale(0);
+    transform: scale(0);
     opacity: 1;
   }
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
 @keyframes scale-in-center {
   0% {
     -webkit-transform: scale(0);
-            transform: scale(0);
+    transform: scale(0);
     opacity: 1;
   }
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
-
-
-
 
 /* style.css */
 :root {
   --boxshadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  --formbg: #eeebeb85;
+  --formbg: #eeebebc9;
 }
 /* Reset or basic setup */
 * {
@@ -53,11 +50,10 @@
   font-family: "Manrope", Arial, sans-serif;
 }
 
-
-
 .scale-in-center {
-	-webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s both;
-	        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s both;
+  -webkit-animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    1s both;
+  animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both;
 }
 html,
 body {
@@ -128,7 +124,6 @@ svg,
 a,
 p {
   color: rgb(28 101 167);
-  
 }
 a {
   text-decoration: none !important;
@@ -172,7 +167,7 @@ main {
 .nav-link {
   text-wrap-mode: nowrap;
   text-align: center;
-  color: rgb(7 42 74 / 99%)!important;
+  color: rgb(7 42 74 / 99%) !important;
 }
 
 .bi {
@@ -185,8 +180,8 @@ main {
   font-weight: bold;
   margin-right: 1rem;
 }
-#user {
-  text-transform: capitalize !important;
+#user::first-letter {
+  text-transform:  uppercase!important;
 }
 #userlist {
   background-color: whitesmoke;
@@ -246,7 +241,7 @@ center {
 }
 .card-image {
   max-width: 550px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 .card-image img {
   width: 100%;
@@ -316,7 +311,6 @@ center {
   margin: 0 auto;
   box-shadow: var(--boxshadow);
   gap: 1rem;
-
 }
 
 /* .create-section form label {

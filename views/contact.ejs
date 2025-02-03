@@ -19,13 +19,13 @@
     <!-- Include header dynamically -->
     <%- include('partials/header.ejs') %>
 <section class="contact-section">
-<p>
-    We'd love to hear from you! Whether you have questions, feedback, or just want to say hello, fill out the form below, and we'll get back to you as soon as we can.
+<p class="contact_subtitle">
+    Θα θέλαμε πολύ να ακούσουμε νέα σας! Είτε έχετε ερωτήσεις, σχόλια ή απλά θέλετε να πείτε ένα γειά, συμπληρώστε την παρακάτω φόρμα και θα σας απαντήσουμε το συντομότερο δυνατόν.
 </p>
 
 <form action="/send" method="POST">  
     <div class="mb-3">
-        <label class="form-label" for="subject_contact">Subject</label>
+        <label class="form-label" for="subject_contact">Θέμα</label>
         <input class="form-control" type="text" id="subject_contact" name="subject_contact" required>
     </div>
     <div class="mb-3">
@@ -33,7 +33,7 @@
         <input class="form-control" type="email" id="email_contact" name="email_contact" required>
     </div>
     <div class="mb-3">
-        <label for="msg_contact" class="form-label">Your message</label>
+        <label for="msg_contact" class="form-label">Το μήνυμα σας</label>
         <textarea class="form-control" rows="8" name="msg_contact" id="msg_contact"></textarea>
     </div>
 <button class="btn btn-md btn-primary"> Sent message</button>

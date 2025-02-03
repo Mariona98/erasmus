@@ -3,12 +3,12 @@
 
 <div class="background"></div>
 <div id="mission">
-<h2>Ours mission </h2><br>
-<p class="scale-in-center">
-  The Erasmus programs offer an opportunity to experience different cultures in Europe and collaborate on specific topics.
-  <strong> The aim of this website is to facilitate the search for a program. </strong>The idea is evolving, and we are open to suggestions and ideas on the 
-  <a href="/contact">"Contact Us"</a>  page.</p>
-</div>
+  <h2>Σκοπός της Ιστοσελίδας</h2><br>  
+  <p class="scale-in-center">  
+    Τα προγράμματα Erasmus προσφέρουν μια μοναδική ευκαιρία να γνωρίσετε άλλες κουλτούρες της Ευρώπης και να συνεργαστείτε σε συγκεκριμένα θέματα.   
+    <strong>Ο σκοπός αυτής της ιστοσελίδας είναι να διευκολύνει την αναζήτηση προγραμμάτων Erasmus</strong>. Είμαστε πάντα ανοιχτοί σε προτάσεις και ιδέες! Μη διστάσετε να επικοινωνήσετε μαζί μας στη σελίδα <a href="/contact">Επικοινωνία</a>.  
+  </p> 
+  </div> 
   <!-- Listing Section -->
 <div class="listing">
   <div class="container">
@@ -16,7 +16,7 @@
       <p>No entries yet!</p>
     <% } else { %>
       <!-- Latest Posts (First Two) -->
-      <center><h3 class="p-4 mt-6">Latest posts</h3></center>
+      <center><h3 class="p-4 mt-6">Τελευταίες αναρτήσεις</h3></center>
       <div class="row">
         <!-- First Post -->
         <div class="col-md-6 col-lg-6 mt-6">
@@ -26,17 +26,17 @@
                 <img src="/images/<%= entries[0].id %>" alt="Article Image" />
               </div>
               <div class="card-content">
-                <p><strong>Country:</strong> <%= entries[0].country %></p>
+                <p><strong>Χώρα:</strong> <%= entries[0].country %></p>
                 <p>
                   <strong>Dates:</strong>
                   <%= new Date(entries[0].entry_date).toLocaleDateString('en-GB') %> to 
                   <%= new Date(entries[0].end_date).toLocaleDateString('en-GB') %>
                 </p>
                 <p>
-                  <strong>Ages:</strong>
+                  <strong>Ηλικίες:</strong>
                   <%= entries[0].age_limit_down || "N/A" %> - <%= entries[0].age_limit_up || "N/A" %>
                 </p>
-                <p style="font-size: 14px;"><strong>Posted at:</strong> <%= new Date(entries[0].created_at).toString().substring(0, 16) %></p>
+                <p style="font-size: 14px;"><strong>Αναρτήθηκε:</strong> <%= new Date(entries[0].created_at).toString().substring(0, 16) %></p>
               </div>
             </a>
           </div>
@@ -51,17 +51,17 @@
                   <img src="/images/<%= entries[1].id %>" alt="Article Image" />
                 </div>
                 <div class="card-content">
-                  <p><strong>Country:</strong> <%= entries[1].country %></p>
+                  <p><strong>Χώρα:</strong> <%= entries[1].country %></p>
                   <p>
-                    <strong>Dates:</strong>
+                    <strong>Ημερομηνίες:</strong>
                     <%= new Date(entries[1].entry_date).toLocaleDateString('en-GB') %> to 
                     <%= new Date(entries[1].end_date).toLocaleDateString('en-GB') %>
                   </p>
                   <p>
-                    <strong>Ages:</strong>
+                    <strong>Ηλικίες:</strong>
                     <%= entries[1].age_limit_down || "N/A" %> - <%= entries[1].age_limit_up || "N/A" %>
                   </p>
-                  <p style="font-size: 14px;"><strong>Posted at:</strong> <%= new Date(entries[1].created_at).toString().substring(0, 16) %></p>
+                  <p style="font-size: 14px;"><strong>Αναρτήθηκε:</strong> <%= new Date(entries[1].created_at).toString().substring(0, 16) %></p>
                 </div>
               </a>
             </div>
@@ -82,17 +82,17 @@
                     <img src="/images/<%= entry.id %>" alt="Article Image" />
                   </div>
                   <div class="card-content">
-                    <p><strong>Country:</strong> <%= entry.country %></p>
+                    <p><strong>Χώρα:</strong> <%= entry.country %></p>
                     <p>
-                      <strong>Dates:</strong>
+                      <strong>Ημερομηνίες:</strong>
                       <%= new Date(entry.entry_date).toLocaleDateString('en-GB') %> to 
                       <%= new Date(entry.end_date).toLocaleDateString('en-GB') %>
                     </p>
                     <p>
-                      <strong>Ages:</strong> 
+                      <strong>Ηλικίες:</strong> 
                       <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
                     </p>
-                    <p style="font-size: 12px;"><strong>Posted at:</strong> <%= new Date(entry.created_at).toString().substring(0, 16) %></p>
+                    <p style="font-size: 12px;"><strong>Αναρτήθηκε:</strong> <%= new Date(entry.created_at).toString().substring(0, 16) %></p>
                   </div>
                 </a>
               </div>
@@ -103,7 +103,7 @@
     <% } %>
     <!-- More button -->
     <div class="d-flex justify-content-end">
-      <a class="text-white btn btn-primary" href="/posts">More</a>
+      <a class="text-white btn btn-primary" href="/posts">Περισσότερα</a>
     </div>
   </div> <!-- End container -->
 </div> <!-- End listing -->
