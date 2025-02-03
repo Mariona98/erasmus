@@ -1,49 +1,111 @@
+<!-- Include header dynamically -->
+<%- include('partials/header.ejs') %>
 
- <!-- Include header dynamically -->  
-  
- <%- include('partials/header.ejs') %>  
-  <!-- Filter/Search Section -->
-  <div id="filterswrapper" class="search-filter dropdown">
-    <label for="category">Category:</label>
-  
-    <select id="category" class="form-select" aria-label="Default select example">
-      <option selected>Open this select menu</option>
-      <option value="1">All</option>
-      <option value="2">Events</option>
-      <option value="3">Talks</option>
-      <option value="3">Meetups</option>
-    </select>
-
-    <label for="startDate">Start Date:</label>
-    <input type="date"  class="form-control mt-2" id="startDate">
-
-    <label for="endDate">End Date:</label>
-    <input type="date" class="form-control mt-2" id="endDate">
-
-    <button id="searchBtn" type="submit" class="btn btn-primary">Search</button>
-  </div>
-<div class="listingwrapper">
+<div class="background"></div>
+<div id="mission">
+  <h2>Σκοπός της Ιστοσελίδας</h2><br>  
+  <p class="scale-in-center">  
+    Τα προγράμματα Erasmus προσφέρουν μια μοναδική ευκαιρία να γνωρίσετε άλλες κουλτούρες της Ευρώπης και να συνεργαστείτε σε συγκεκριμένα θέματα.   
+    <strong>Ο σκοπός αυτής της ιστοσελίδας είναι να διευκολύνει την αναζήτηση προγραμμάτων Erasmus</strong>. Είμαστε πάντα ανοιχτοί σε προτάσεις και ιδέες! Μη διστάσετε να επικοινωνήσετε μαζί μας στη σελίδα <a href="/contact">Επικοινωνία</a>.  
+  </p> 
+  </div> 
   <!-- Listing Section -->
-  <div class="listing">
-    <!-- Example Card 1 -->
-    <div class="card">
-      <div class="card-image"> 
-        <!-- Remove "/public" in the src attribute -->
-        <img src="/images/placeholder.jpg" alt="Placeholder">
-      </div>
-      <div class="card-content">
-        <h2 class="card-heading">Heading</h2>
-        <p class="card-subheading">Subheading | 10/12/2023</p>
-        <p class="card-tags">Topic: Environment, Recycle</p>
-        <p class="card-snippet">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-        </p>
-      </div>
+<div class="listing">
+  <div class="container">
+    <% if (!entries[0]) { %>
+      <p>No entries yet!</p>
+    <% } else { %>
+      <!-- Latest Posts (First Two) -->
+      <center><h3 class="p-4 mt-6">Τελευταίες αναρτήσεις</h3></center>
+      <div class="row">
+        <!-- First Post -->
+        <div class="col-md-6 col-lg-6 mt-6">
+          <div class="card scale-in-center">
+            <a href="/post/<%= entries[0].id %>" class="card-link" style="text-decoration: none; color: inherit;">
+              <div class="card-image">
+                <img src="/images/<%= entries[0].id %>" alt="Article Image" />
+              </div>
+              <div class="card-content">
+                <p><strong>Χώρα:</strong> <%= entries[0].country %></p>
+                <p>
+                  <strong>Dates:</strong>
+                  <%= new Date(entries[0].entry_date).toLocaleDateString('en-GB') %> to 
+                  <%= new Date(entries[0].end_date).toLocaleDateString('en-GB') %>
+                </p>
+                <p>
+                  <strong>Ηλικίες:</strong>
+                  <%= entries[0].age_limit_down || "N/A" %> - <%= entries[0].age_limit_up || "N/A" %>
+                </p>
+                <p style="font-size: 14px;"><strong>Αναρτήθηκε:</strong> <%= new Date(entries[0].created_at).toString().substring(0, 16) %></p>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Second Post (if exists) -->
+        <% if (entries[1]) { %>
+          <div class="col-md-6 col-lg-6 mt-6">
+            <div class="card scale-in-center">
+              <a href="/post/<%= entries[1].id %>" class="card-link" style="text-decoration: none; color: inherit;">
+                <div class="card-image">
+                  <img src="/images/<%= entries[1].id %>" alt="Article Image" />
+                </div>
+                <div class="card-content">
+                  <p><strong>Χώρα:</strong> <%= entries[1].country %></p>
+                  <p>
+                    <strong>Ημερομηνίες:</strong>
+                    <%= new Date(entries[1].entry_date).toLocaleDateString('en-GB') %> to 
+                    <%= new Date(entries[1].end_date).toLocaleDateString('en-GB') %>
+                  </p>
+                  <p>
+                    <strong>Ηλικίες:</strong>
+                    <%= entries[1].age_limit_down || "N/A" %> - <%= entries[1].age_limit_up || "N/A" %>
+                  </p>
+                  <p style="font-size: 14px;"><strong>Αναρτήθηκε:</strong> <%= new Date(entries[1].created_at).toString().substring(0, 16) %></p>
+                </div>
+              </a>
+            </div>
+          </div>
+        <% } %>
+      </div> <!-- End row for Latest Posts -->
+  
+      <!-- Older Posts (Index > 1) -->
+      <% if (entries.length > 2) { %>
+        <div class="row" style="margin: 60px 0px">
+          <center><h3 class="p-4">Older posts</h3></center>
+          <% entries.forEach((entry, index) => { 
+               if (index > 1) { %>
+            <div class="col-md-4 col-lg-4 mt-6">
+              <div class="card scale-in-center">
+                <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
+                  <div class="card-image">
+                    <img src="/images/<%= entry.id %>" alt="Article Image" />
+                  </div>
+                  <div class="card-content">
+                    <p><strong>Χώρα:</strong> <%= entry.country %></p>
+                    <p>
+                      <strong>Ημερομηνίες:</strong>
+                      <%= new Date(entry.entry_date).toLocaleDateString('en-GB') %> to 
+                      <%= new Date(entry.end_date).toLocaleDateString('en-GB') %>
+                    </p>
+                    <p>
+                      <strong>Ηλικίες:</strong> 
+                      <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
+                    </p>
+                    <p style="font-size: 12px;"><strong>Αναρτήθηκε:</strong> <%= new Date(entry.created_at).toString().substring(0, 16) %></p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          <% } }); %>
+        </div> <!-- End row for Older Posts -->
+      <% } %>
+    <% } %>
+    <!-- More button -->
+    <div class="d-flex justify-content-end">
+      <a class="text-white btn btn-primary" href="/posts">Περισσότερα</a>
     </div>
+  </div> <!-- End container -->
+</div> <!-- End listing -->
 
-    <!-- Repeat more cards as needed -->
-  </div>
-</div>
-
-  <%- include('partials/footer.ejs') %>  
-
+<%- include('partials/footer.ejs') %>

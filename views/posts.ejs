@@ -1,21 +1,151 @@
+<!-- Include header dynamically -->
 
- <!-- Include header dynamically -->  
- <%- include('partials/header.ejs') %> 
+<%- include('partials/header.ejs') %>
 
-  <section class="details-section">
-    <!-- If placeholder.jpg is in "public/images", 
-         then src="/images/placeholder.jpg" is correct -->
-    <img src="/images/placeholder.jpg" alt="Placeholder" class="details-image">
+<!-- Filter/Search Section -->
+<div id="filterswrapper" class="search-filter dropdown m-auto">
 
-    <div class="details-content">
-      <h1>RECYCLE REUSE</h1>
-      <p class="details-meta">Posted on: 12/10/2023 | Category: Environment</p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        Nunc a dolor id risus consectetur blandit. Suspendisse potenti...
-        <!-- longer text here -->
-      </p>
+  <label for="country">Χώρα:</label>  
+  <select id="country" class="form-select" aria-label="Επιλογή χώρας">  
+      <option value="" selected disabled>Επιλέξτε χώρα</option>  
+      <option value="Austria">Αυστρία</option>  
+      <option value="Belgium">Βέλγιο</option>  
+      <option value="Bulgaria">Βουλγαρία</option>  
+      <option value="Croatia">Κροατία</option>  
+      <option value="Cyprus">Κύπρος</option>  
+      <option value="Czech Republic">Τσεχία</option>  
+      <option value="Denmark">Δανία</option>  
+      <option value="Estonia">Εσθονία</option>  
+      <option value="Finland">Φινλανδία</option>  
+      <option value="France">Γαλλία</option>  
+      <option value="Germany">Γερμανία</option>  
+      <option value="Greece">Ελλάδα</option>  
+      <option value="Hungary">Ουγγαρία</option>  
+      <option value="Ireland">Ιρλανδία</option>  
+      <option value="Italy">Ιταλία</option>  
+      <option value="Latvia">Λετονία</option>  
+      <option value="Lithuania">Λιθουανία</option>  
+      <option value="Luxembourg">Λουξεμβούργο</option>  
+      <option value="Malta">Μάλτα</option>  
+      <option value="Netherlands">Ολλανδία</option>  
+      <option value="Poland">Πολωνία</option>  
+      <option value="Portugal">Πορτογαλία</option>  
+      <option value="Romania">Ρουμανία</option>  
+      <option value="Slovakia">Σλοβακία</option>  
+      <option value="Slovenia">Σλοβενία</option>  
+      <option value="Spain">Ισπανία</option>  
+      <option value="Sweden">Σουηδία</option>  
+      <option value="Other">Άλλη</option>  
+  </select> 
+
+  <label for="month" class="mt-3">Μήνας:</label>  
+<select id="month" class="form-select mt-2">  
+    <option value="" selected disabled>Επιλέξτε μήνα</option>  
+    <option value="01">Ιανουάριος</option>  
+    <option value="02">Φεβρουάριος</option>  
+    <option value="03">Μάρτιος</option>  
+    <option value="04">Απρίλιος</option>  
+    <option value="05">Μάιος</option>  
+    <option value="06">Ιούνιος</option>  
+    <option value="07">Ιούλιος</option>  
+    <option value="08">Αύγουστος</option>  
+    <option value="09">Σεπτέμβριος</option>  
+    <option value="10">Οκτώβριος</option>  
+    <option value="11">Νοέμβριος</option>  
+    <option value="12">Δεκέμβριος</option>  
+</select>  
+
+
+  <label for="days" class="mt-3">Σύνολο ημερών:</label>
+  <select id="days" class="form-select mt-2">
+    <option value="" selected disabled>Ημέρες ταξιδιού</option>
+    <% for (let i = 1; i <= 20; i++) { %>
+      
+      <option value="<%= i %>"><%= i %> ημέρ<%= i > 1 ? "ες" : "α" %></option>
+    <% } %>
+  </select>
+
+  <button id="searchBtn" type="button" class="btn btn-primary mt-3">Αναζήτηση</button>
+</div>
+<hr>
+<div class="listingwrapper">
+
+  <!-- Listing Section -->
+  <div class="listing">
+  
+    <div class="container">
+      <div class="row">
+
+        <center><h3 class="p-4">Ανακοινώσεις Ταξιδιών</h3></center>
+        <% entries.forEach((entry, index) => { %> 
+          <% 
+            // Calculate the number of days for the current entry
+            const totalDays = Math.ceil((new Date(entry.end_date) - new Date(entry.entry_date)) / (1000 * 60 * 60 * 24)); 
+            
+          %>
+        
+          <% if (index > -1 ) { %> 
+            <div class="col-md-4 col-lg-4 mt-6">
+              <div class="card scale-in-center">
+                <!-- Wrap the card with an anchor tag to make it clickable -->
+                <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
+                  <div class="card-image">
+                    <img src="/images/<%= entry.id %>" alt="Article Image" />
+                  </div>
+                  <div class="card-content">
+                    <!-- Title in bold -->
+                    <h5 class="card-heading" style="font-weight: bold;"><%= entry.title %></h5>
+                
+                    <!-- Country -->
+                    <p class="card-subheading" style="margin: 0;">
+                      <strong>Χώρα:</strong> <%= entry.country %>
+                    </p>
+                
+                    <!-- Age limits -->
+                    <p class="card-subheading" style="margin: 0;">
+                      <strong>Ηλικίες:</strong> <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
+                    </p>
+                
+                    <!-- Dates -->
+                    <p class="card-subheading" style="margin: 0;">
+                      <strong>Ημέρες:</strong>
+                      <%= new Date(entry.entry_date).toLocaleDateString('en-GB') %> to 
+                      <%= new Date(entry.end_date).toLocaleDateString('en-GB') %>
+                      <!-- Calculate and display the days -->
+                      <span style="white-space: nowrap; margin-left: 10px; font-size: 0.8em; opacity: 0.6;">
+                        (<%= totalDays %> <% d = (totalDays>1) ?"ημερών":"ημέρα"%><%= d %>)
+                      </span>
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          <% } %> <!-- End of if statement -->
+        <% }); %> <!-- End of forEach loop -->
+        
+    
+      </div>
+      
+      
     </div>
-  </section>
+  </div>
+</div>
+<script>
+document.getElementById("searchBtn").addEventListener("click", () => {
+  const country = document.getElementById("country").value;
+  const month = document.getElementById("month").value;
+  const days = document.getElementById("days").value;
 
-  <%- include('partials/footer.ejs') %>  
+  let query = "?";
+  if (country) query += `country=${country}&`;
+  if (month) query += `month=${month}&`;
+  if (days) query += `days=${days}&`;
+
+  // Redirect to filtered results
+  window.location.href = "/posts" + query.slice(0, -1); // Remove trailing '&'
+});
+
+</script>
+<!-- Repeat more cards as needed -->
+<%- include('partials/footer.ejs') %>
+

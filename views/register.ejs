@@ -2,42 +2,66 @@
 <%- include('partials/header.ejs') %>
 
 <section class="login-section">
-  <form class="form-signin mt-5">
+  <form class="form-signin mt-5" action="/register" method="POST">
     <img
-      class="m-2 m-auto"
+      class="m-auto"
       src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
       alt=""
       width="72"
       height="72"
     />
-    <h1 class="m-auto">Registration form </h1>
+    <br />
+    <h2 class="m-auto">Φόρμα εγγραφής</h2>
+    <br />
+   
+    <ul class="p-0 text-center">
+      <% if(typeof errors != 'undefined'){ %>
+         <% for(var i=0; i< errors.length;i++) {%>
+         <li class="text-danger messages border border-3 text-center"><%= errors[i].message %></li>
+      <% } %>
+      <% } %>
+    </ul>
+
+    <br />
     <label for="registerEmail" class="sr-only mt-2">Email address</label>
     <input
       type="email"
       id="registerEmail"
       class="form-control mt-2"
       placeholder="Email address"
-      required=""
+      name="email"
+      required
       autofocus=""
     />
 
-    <label for="registerUsername" class="sr-only mt-2">Username</label>
+    <label for="registerUsername" class="sr-only mt-2">Ονομά χρήστη</label>
     <input
       type="text"
       id="registerUsername"
       class="form-control mt-2"
       placeholder="Username"
-      required=""
+      name="username"
+      required
       autofocus=""
     />
 
-    <label for="registerPassword" class="sr-only">Password</label>
+    <label for="registerPassword" class="sr-only">Κωδικός</label>
     <input
       type="password"
       id="registerPassword"
       class="form-control mt-2"
       placeholder="Password"
-      required=""
+      required
+      name="password"
+    />
+    <label for="confirmpassword" class="sr-only">Επιβεβαίωση κωδικού</label>
+    <input
+      type="password"
+      id="confirmpassword"
+      class="form-control mt-2"
+      placeholder="Confirm password"
+      required
+      name="confpassword"
     />
 
     <div class="d-flex justify-content-between">
@@ -49,13 +73,13 @@
       <br />
       <div class="checkbox my-3">
         <label>
-          <input type="checkbox" value="author" /> Are you an author?
+          <input type="checkbox" value="true" name="isAuthor" />Θα ανεβάζετε αναγγελίες για προγράμματα Erasmus;
         </label>
       </div>
       <br />
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">
-      Sign in
+      Εγγραφή
     </button>
   </form>
 </section>

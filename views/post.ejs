@@ -1,0 +1,50 @@
+<!-- Include header dynamically -->
+<%- include('partials/header.ejs') %>
+
+<section class="details-section mt-5" style="max-width: 450px">
+  <div class="card">
+    <div class="card-image">
+      <img src="/images/<%= post.id %>" alt="Article Image" />
+    </div>
+    <div class="card-content">
+      <h5 class="card-heading uppercaze"><%= post.title %></h5>
+      
+      <p>
+        <strong>Dates:</strong> 
+        <%= new Date(post.entry_date).toLocaleDateString('en-GB') %> - 
+        <%= new Date(post.end_date).toLocaleDateString('en-GB') %>
+      </p>
+      
+      <p>
+        <strong>Age Range:</strong> <%= post.age_limit_down || "N/A" %> - <%= post.age_limit_up || "N/A" %>
+      </p>
+
+      <p>
+        <strong>Country:</strong> <%= post.country || (post.other_country || "N/A") %>
+      </p>
+
+      <p>
+        <strong>Subheading:</strong> <%= post.subheading || "N/A" %>
+      </p>
+
+      <p>
+        <strong>Description:</strong> <%= post.description || "N/A" %>
+      </p>
+
+      <p>
+        <strong>Link:</strong>
+        <% if (post.link) { %>
+          <a href="<%= post.link %>" target="_blank">Fill the form</a>
+        <% } else { %>
+          N/A
+        <% } %>
+      </p>
+    </div>
+
+    <div class="d-flex justify-content-end m-3">
+      <a class="text-white btn btn-primary" href="/posts">Go back</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer.ejs') %>

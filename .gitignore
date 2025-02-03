@@ -1,0 +1,31 @@
+# Node modules directory  
+node_modules/  
+
+# Logs  
+npm-debug.log*  
+yarn-debug.log*  
+yarn-error.log* 
+logs  
+*.log  
+
+# Build output  
+/dist  
+/build  
+.next/  
+ 
+dist/  
+build/  
+*.tgz  
+
+# Environment variables  
+.env
+
+# Dependencies  
+node_modules/  
+
+# OS-specific files  
+.DS_Store  
+Thumbs.db  
+
+# npm link  
+.link/  
