@@ -7,7 +7,7 @@ function initialize(passport) {
     console.log("Attempting to authenticate user with email:", email);
 
     pool.query(
-      `SELECT * FROM users WHERE email = $1`,
+      `SELECT * FROM users WHERE email = ?`,
       [email],
       (err, results) => {
         if (err) {
@@ -55,22 +55,10 @@ function initialize(passport) {
     )
   );
 
-  passport.serializeUser((user, done) => done(null, user.id));
 
-  passport.deserializeUser((id, done) => {
-    pool.query(`SELECT * FROM users WHERE id = $1`, [id], (err, results) => {
-      if (err) {
-        return done(err);
-      }
-      if (results.rows.length > 0) {
-        console.log(`User deserialized with ID: ${results.rows[0].id}`);
-        return done(null, results.rows[0]);
-      } else {
-        console.log("No user found for deserialization");
-        return done(null, false); // Handle no user
-      }
-    });
-  });
+
+  
+
 }
 
 module.exports = initialize;
