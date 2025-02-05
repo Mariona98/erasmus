@@ -77,51 +77,53 @@
       <div class="row">
 
         <center><h3 class="p-4">Ανακοινώσεις Ταξιδιών</h3></center>
-        <% entries.forEach((entry, index) => { %> 
-          <% 
-            // Calculate the number of days for the current entry
+         <% entries.forEach((entry, index) => { %> 
+          <%  
+            <!-- // Calculate the number of days for the current entry -->
             const totalDays = Math.ceil((new Date(entry.end_date) - new Date(entry.entry_date)) / (1000 * 60 * 60 * 24)); 
             
           %>
         
           <% if (index > -1 ) { %> 
             <div class="col-md-4 col-lg-4 mt-6">
-              <div class="card scale-in-center">
+              <div class="card scale-in-center"> 
                 <!-- Wrap the card with an anchor tag to make it clickable -->
                 <a href="/post/<%= entry.id %>" class="card-link" style="text-decoration: none; color: inherit;">
                   <div class="card-image">
                     <img src="/images/<%= entry.id %>" alt="Article Image" />
                   </div>
-                  <div class="card-content">
+                  <div class="card-content"> 
                     <!-- Title in bold -->
                     <h5 class="card-heading" style="font-weight: bold;"><%= entry.title %></h5>
                 
                     <!-- Country -->
-                    <p class="card-subheading" style="margin: 0;">
+                     <p class="card-subheading" style="margin: 0;">
                       <strong>Χώρα:</strong> <%= entry.country %>
-                    </p>
+                    </p> 
                 
                     <!-- Age limits -->
-                    <p class="card-subheading" style="margin: 0;">
+                   <p class="card-subheading" style="margin: 0;">
                       <strong>Ηλικίες:</strong> <%= entry.age_limit_down || "N/A" %> - <%= entry.age_limit_up || "N/A" %>
-                    </p>
+                    </p> 
                 
                     <!-- Dates -->
                     <p class="card-subheading" style="margin: 0;">
                       <strong>Ημέρες:</strong>
                       <%= new Date(entry.entry_date).toLocaleDateString('en-GB') %> to 
-                      <%= new Date(entry.end_date).toLocaleDateString('en-GB') %>
+                      <%= new Date(entry.end_date).toLocaleDateString('en-GB') %> 
                       <!-- Calculate and display the days -->
-                      <span style="white-space: nowrap; margin-left: 10px; font-size: 0.8em; opacity: 0.6;">
+                       <span style="white-space: nowrap; margin-left: 10px; font-size: 0.8em; opacity: 0.6;">
                         (<%= totalDays %> <% d = (totalDays>1) ?"ημερών":"ημέρα"%><%= d %>)
                       </span>
                     </p>
                   </div>
                 </a>
               </div>
-            </div>
-          <% } %> <!-- End of if statement -->
-        <% }); %> <!-- End of forEach loop -->
+            </div> 
+      <!-- End of if statement -->
+            <% } %> 
+        <% }); %> 
+         <!-- End of forEach loop -->
         
     
       </div>

@@ -8,6 +8,21 @@
   <body>
     <!-- Include header dynamically -->
     <%- include('partials/header.ejs') %>
+
+     
+      <ul class="p-0">
+ <%if(messages.success_msg ){%>
+    
+ <li class="text-success border border-3 border-success text-center messages"> <%= messages.success_msg %></li>
+ <% } %>
+ </ul>
+ <ul class="p-0">
+   <%if(messages.error ){%>
+      
+   <li class="text-danger border border-3 border-danger text-center messages"> <%= messages.error  %></li>
+   <% } %>
+  <%= user%>
+   </ul>
     <!-- <center>
       <p id="message" class="border-danger text-danger p-3 text-center"></p>
     </center> -->

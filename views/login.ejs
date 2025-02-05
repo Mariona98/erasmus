@@ -3,19 +3,7 @@
  <%- include('partials/header.ejs') %>  
 
   <section class="login-section">
-    <ul class="p-0">
-<%if(messages.success_msg ){%>
-    
-<li class="text-success border border-3 border-success text-center messages"> <%= messages.success_msg %></li>
-<% } %>
-</ul>
-<ul class="p-0">
-  <%if(messages.error ){%>
-      
-  <li class="text-danger border border-3 border-danger text-center messages"> <%= messages.error  %></li>
-  <% } %>
-  
-  </ul>
+
   
     <form class="form-signin mt-5" method="POST" action="/login">
      <img style="width: fit-content; margin: 0 auto;" src="/icons/logo/logo.png" alt="erasmas logo">

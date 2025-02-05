@@ -44,7 +44,7 @@
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <!-- <span class="navbar-toggler-icon"></span> -->
+              <span class="navbar-toggler-icon"></span>
               <img
                 src="/icons/bars-solid.svg"
                 width="20"
@@ -55,7 +55,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- <% if (user_ !== "guest") { %>
+                <% if (user !== "guest") { %>
                 <li class="nav-item">
                   <a href="/addpage" class="nav-link">
                     <img
@@ -69,15 +69,14 @@
                   >
                 </li>
                 <% }else{ %>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="/login" class="nav-link">Είσοδος</a>
-                </li> -->
+                </li>  -->
 
-                <!--<li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="/register" class="register-btn nav-link">Register</a>
-                </li>-->
-                <!-- <% }%> -->
-                <li class="nav-item">
+                </li> -->
+                 <% }%>                <li class="nav-item">
                   <a href="/posts" class="nav-link">Ανακοινώσεις Ταξιδιών</a>
                 </li>
                 <li class="nav-item">
@@ -89,12 +88,12 @@
           <div
             class="welcome-box d-flex mt-4"
             style="width: 100%; justify-content: flex-end"
-          >
-            <% if (user_ !== "guest") { %>
-            <div class="float-end" id="user">
-              <h6 class="ml-2 p-2">
+          > 
+             <% if (user !== "guest") { %> 
+                           <div class="float-end" id="user">
+              <h6 class="ml-2 p-2"> 
                 Γειά σου ,
-                <a class="" href="#"> <%= user_.username %> </a>!&nbsp;
+                <a class="" href="#"> <%= user.username %> </a>!&nbsp;
               </h6>
               <ul id="userlist" class="text-center">
                 <li>
@@ -109,7 +108,7 @@
                
               </ul>
             </div>
-            <% } %>
+            <% } %> 
           </div>
         </nav>
       </header>
